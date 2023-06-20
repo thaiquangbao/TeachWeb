@@ -1,0 +1,201 @@
+<form method="post" name='delete-form-all' action = "/editcourse/deleteAll">
+    <div class="container-fluid body-table" >
+        <div class="head">
+            <h1>Danh sách khóa học</h1>
+            <a href="/editcourse/trash" class="button-rac">
+                <img src="https://media.istockphoto.com/id/1187525428/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-m%C3%A0u-%C4%91%E1%BB%8F-d%C3%B2ng-th%C3%B9ng-r%C3%A1c-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-h%C3%ACnh-minh-h%E1%BB%8Da-vector-ki%E1%BB%83u-ph%E1%BA%B3ng-m%C3%A0u-%C4%91%E1%BB%8F.jpg?s=170667a&w=0&k=20&c=U49EM4UW6OfZC18mpM_h1a-5RbDXT8UhUiSBqE5EuPQ=" alt="">
+            </a>
+            ({{deletedCount}})
+            
+            <div class="form-check" style="float: left; margin-bottom: 20px;">
+                <input class="form-check-input" type="checkbox" style="width: 20px; height: 20px;" value="" id="checkBox-all">
+                <label class="form-check-label" for="checkBox-all" style="margin-left: 15px;">
+                    Chọn tất cả
+                </label>
+                <a href="" data-toggle="modal" class="btn btn-primary disabled btn-deleteAll" data-target="#deleteAll-modal" >Xóa tất cả</a>
+            </div>
+            
+        </div>
+        
+        <div class="table-students">
+            <table class="table" >
+                <thead class="thead-dark " >
+                    <tr >
+                    <th>Chọn</th>
+                    <th scope="col">#</th>
+                    <th scope="col" style="width: 150px ;">
+                        Tên khóa học
+                        {{{sortable 'item' _sort}}}
+                    </th>
+                    <th scope="col">
+                        Giá
+                        {{{sortable 'price' _sort}}}
+                       
+                    </th>
+                    <th scope="col" style="width: 150px;">Số giờ học</th>
+                    <th scope="col">
+                        Lượng video
+                        {{{sortable 'soLuongVideo' _sort}}}
+                    </th>
+                    <th scope="col " style="width: 100px;">Trình độ</th>
+                    <th scope="col" style="width: 150px;">Title</th>
+                    <th scope="col" style="width: 100px;  ">Giáo viên</th>
+                    <th class="col" style=" width: 140px; " >Chỉnh sửa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each sales}}
+                    <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="courseItem[]" value="{{this.item}}">
+
+                        </div>
+                    </td>
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.item}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.soGio}}</td>
+                    <td>{{this.soLuongVideo}}</td>
+                    <td>{{this.trinhDo}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.tenGV}}</td>
+                    <td>
+                        <a href="/editcourse/{{this.item}}/edit" class="btn btn-link ">Sửa</a>
+                        <a href="" data-toggle="modal" data-item="{{this.item}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                    </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="9">
+                            <div class="mess-them" style="text-align: center;">
+                                <p>Bạn chưa đăng khóa học nào hãy bấm vào thêm khóa học để thêm khóa học mới bạn nhé :3</p>
+                                <a href="/courses" class="btn btn-primary" role="button">Thêm khóa học</a>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="inserthv" style="margin-top: 50px; text-align: center;">
+                <a href="/editcourse/insertCourse" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm khóa học</a>
+            </div> 
+        </div>
+    </div>
+</form>
+{{!-- Model --}}
+{{!-- Hiện from xác nhận xóa --}}
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+        </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteAll-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+        </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-all" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" name='delete-form-course'>
+
+</form>
+
+
+
+
+
+{{!-- Tạo hành động cho nút delete --}}
+<script>
+    var tenKH;
+    var deleteForm= document.forms['delete-form-course'];
+    var btnDeleteCourse = document.getElementById('btn-delete')
+    // lấy được một key muốn xóa để nhận diện cho cả Object
+    document.addEventListener('DOMContentLoaded',() =>{
+        $('#delete-modal').on('show.bs.modal', (event) =>{
+        var button = $(event.relatedTarget)
+        tenKH = button.data('item')
+        
+    });
+        btnDeleteCourse.onclick = function(){
+        deleteForm.action = '/editcourse/'+ tenKH +'?_method=DELETE';
+        deleteForm.submit();
+    }
+    
+})
+</script>
+{{!-- Form check box --}}
+<script>
+    var checkBoxAll = document.querySelectorAll('#checkBox-all')
+    var checkBoxItem = document.querySelectorAll('input[name="courseItem[]"]')
+    var deleteAllBtn = document.querySelectorAll('.btn-deleteAll')
+    var deleteAll = document.querySelectorAll('#btn-delete-all')
+    var deleteFormAll = document.forms['delete-form-all']
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        checkBoxAll.forEach((checkAll) =>{
+            checkAll.addEventListener('click',(e)=>{
+                var isCheckedAll = e.target.checked;
+                checkBoxItem.forEach((checkItem)=>{
+                    checkItem.checked=isCheckedAll
+                        
+                    })
+                    ableCheckBox()
+                })
+            });
+        
+        checkBoxItem.forEach((check) =>{
+            check.addEventListener('click',(e) =>{
+                var isCheckedAll = checkBoxItem.length === document.querySelectorAll('input[name="courseItem[]"]:checked').length;
+                checkBoxAll.forEach(checkAll=>
+                checkAll.checked = isCheckedAll
+                
+                )
+                ableCheckBox()
+            })
+        })
+        function ableCheckBox(){
+            var checkedCount = document.querySelectorAll('input[name="courseItem[]"]:checked').length;
+            if(checkedCount > 0)
+            {
+                deleteAllBtn.forEach(btn => btn.classList.remove('disabled'))
+            }
+            else{
+                deleteAllBtn.forEach(btn => btn.classList.add('disabled'))
+            }
+        }
+       deleteAll.forEach((checkAll)=>{
+        checkAll.addEventListener('click',(e)=>{
+            var isSubmitable = !$(this).hasClass('disabled');
+                if(isSubmitable)
+                {
+                    
+                    deleteFormAll.submit()
+                }
+        })
+       })
+    
+        
+    })
+</script>
+

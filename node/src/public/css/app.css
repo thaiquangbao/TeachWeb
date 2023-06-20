@@ -1,0 +1,174 @@
+* {
+  padding: 0px;
+  margin: auto; }
+
+.app {
+  height: 1600px;
+  width: 100%; }
+
+header {
+  height: 150px;
+  width: 100%;
+  background-color: black; }
+
+header img {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  top: 10px; }
+
+header h1 {
+  color: white;
+  position: absolute;
+  margin-top: 10px;
+  left: 400px; }
+
+header .menu {
+  list-style: none;
+  position: absolute;
+  top: 80px;
+  left: 100px; }
+
+.menu li {
+  float: left;
+  margin-left: 30px;
+  text-align: center;
+  width: 200px; }
+
+.menu a {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  line-height: 50px; }
+
+.menu li:hover {
+  background-color: red;
+  border-radius: 10px; }
+
+.content {
+  height: 1400px;
+  width: 100%; }
+
+footer {
+  background-color: black;
+  width: 100%;
+  height: 100px; }
+
+footer p {
+  text-align: center;
+  font-size: 30px;
+  color: white; }
+
+.card-course-item {
+  margin-top: 16px;
+  margin-left: 30px; }
+
+.card-name {
+  margin-top: 10px; }
+
+.btn-primary {
+  background-color: #3b65d8;
+  width: 140px;
+  height: 40px; }
+
+.body .card-body {
+  height: 250px;
+  width: 300px;
+  text-align: center; }
+
+.body .card-body p {
+  margin-top: 15px; }
+
+.body {
+  margin-top: 20px;
+  height: 100%; }
+
+.column {
+  margin-top: 40px;
+  margin-left: 10px;
+  height: 250px;
+  width: 400px; }
+
+.formnhap label {
+  margin-left: 180px;
+  margin-top: 20px; }
+
+.formnhap input {
+  margin-top: 5px;
+  margin-left: 180px; }
+
+.head {
+  margin-top: 40px;
+  text-align: center; }
+
+.table-students {
+  margin-top: 20px;
+  margin-right: 20px; }
+
+.form-write label {
+  margin-left: 30px; }
+
+.tableroll {
+  height: 300px;
+  width: 1500px; }
+  .tableroll .carou {
+    width: 600px;
+    height: 250px;
+    margin-right: 650px; }
+    .tableroll .carou h4 {
+      float: left;
+      margin-left: 20px;
+      margin-top: 20px; }
+    .tableroll .carou p {
+      float: left;
+      margin-left: 20px;
+      margin-top: 10px; }
+    .tableroll .carou button {
+      float: left;
+      margin-left: 15px;
+      margin-top: 5px;
+      border-radius: 30px; }
+  .tableroll .img-title {
+    margin-left: 800px; }
+
+.course-free {
+  width: 1400px;
+  height: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; }
+  .course-free img {
+    margin-top: 20px;
+    border-radius: 30px;
+    margin-left: 20px;
+    width: 380px;
+    height: 220px; }
+  .course-free h5 {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 400px;
+    font-size: 20px; }
+
+.body-table .head .button-rac img {
+  margin-left: 1400px;
+  width: 100px;
+  height: 80px; }
+
+.body-table .head .button-comback img {
+  margin-right: 1600px;
+  width: 50px;
+  height: 40px; }
+
+.btn-deleteAll {
+  border-top: 30px;
+  height: 40px;
+  width: 100px;
+  text-align: center;
+  background-color: chocolate;
+  border-color: chocolate;
+  margin-left: 10px; }
+
+.form-inline .form-control {
+  margin-left: 500px;
+  width: 500px; }

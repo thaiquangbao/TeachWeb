@@ -1,0 +1,1 @@
+{"version":"1.0.0","name":"nodejs","dependencies":{"express-handlebars":{"version":"7.0.7"},"express":{"version":"4.18.2"},"method-override":{"version":"3.0.0"},"mongoose-delete":{"version":"0.5.4"},"mongoose-slug-generator":{"version":"1.0.4"},"mongoose-slug-updater":{"version":"3.3.0"},"mongoose":{"version":"7.2.1"}}}

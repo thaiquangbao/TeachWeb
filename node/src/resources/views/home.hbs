@@ -1,0 +1,29 @@
+
+<div class="mt-4">
+    <form class="form-inline" >
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
+    </form>
+    <div class="row">
+        {{#each sales}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-course-item" >
+                <a href="/users/{{this.slug}}" class="click" style="margin-top: 10px;">
+                    <img class="card-img-top" style="height: 200px; border-radius: 30px; border: 2px solid rgb(122, 166, 231) ;" src="{{this.img}}" alt="Card image cap">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{this.item}}</h5>
+                    <p class="card-text">Phí : {{this.price}}</p>
+                    <a href="#" class="btn btn-primary">Mua</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        
+    </div>
+    <div class="inserthv" style="margin-top: 50px; text-align: center;">
+            <a href="/editcourse" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Chỉnh sửa khóa học</a>
+    </div> 
+</div>
+
+

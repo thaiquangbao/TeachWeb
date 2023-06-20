@@ -1,0 +1,195 @@
+<form class="mt-4" method="post" name="full-form-restore" action="/editteachers/restoreAll/?_method=PATCH">   
+    <div class="container-fluid body-table" >
+        <div class="head">
+            <h1>Danh sách giảng viên đã xóa</h1>
+            <a href="/editteachers" class="button-comback">
+                <img src="data:image/png;base64,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" alt="">
+            </a>
+            <div class="mt-4 check-delete" style=" float: left; margin-bottom: 10px;">
+                    <div class="form-check" style="margin-left: 10px;">
+                        <input class="form-check-input" type="checkbox" value="" id="checkbox-all" style=" width: 20px; height: 20px;">
+                        <label class="form-check-label" for="checkbox-all" style="margin-left: 10px;">
+                            Chọn tất cả 
+                        </label>
+                        <a href=""  class="btn btn-primary disabled btn-restoreAll"  >Khôi phục tất cả</a>
+                        
+                        <button name="delete-allTeacher" disabled formaction="/editteachers/deleteBox/?_method=DELETE" data-toggle="modal" class="btn btn-primary  btn-deleteAll"  >Xóa tất cả</button>
+                       
+                       
+                    </div>
+
+            </div>
+            
+        </div>
+        <div class="table-students">
+            <table class="table" >
+                <thead class="thead-dark " >
+                    <tr>
+                    <th>Chọn</th>
+                    <th scope="col">#</th>
+                    <th scope="col" >Họ và tên</th>
+                    <th scope="col">Giới tính</th>
+                    <th scope="col">Lớp đảm nhiệm</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th class="col" style=" width: 200px; " >Chỉnh sửa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each teachers}}
+                    <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="teacherId[]" value="{{this._id}}">
+                        </div>
+                    </td>
+                    svg
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.hoTen}}</td>
+                    <td>{{this.gioiTinh}}</td>
+                    <td>{{this.lop}}</td>
+                    <td>{{this.description}}</td>
+                    <td><img src="{{this.img}}" alt=""  style="width: 80px; height: 80px; border-radius: 50%;"></td>
+                    
+                    <td>
+                        <a href="" class="btn btn-link btn-restore" data-ten="{{this.hoTen}}">Khôi phục</a>
+                        <a href="" data-toggle="modal" data-ten="{{this.hoTen}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                    </td>
+                    </tr>
+                    {{else}}
+                    <tr>
+                        <td colspan="7">
+                            <div class="mess-them" style="text-align: center;">
+                                <p>Bạn chưa xóa giảng viên nào !!!</p>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        
+        </div>
+    </div>
+</form>
+
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận "Xóa"</h5>
+        </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<form method="post" name="restore-form-teacher"></form>
+<form method="post" name="delete-form-teacher"></form>
+
+
+<script>
+    var tenGV;
+    var restoreBtn = document.querySelectorAll('.btn-restore');
+    var restoreForm = document.forms['restore-form-teacher']
+    var btnDelete = document.getElementById('btn-delete')
+    var deleteForm = document.forms['delete-form-teacher']
+    document.addEventListener('DOMContentLoaded',() =>{
+        $('#delete-modal').on('show.bs.modal',(e)=>{
+            var button = $(e.relatedTarget);
+            tenGV = button.data('ten')
+            
+        });
+        btnDelete.onclick = ()=>{
+            deleteForm.action = '/editteachers/'+ tenGV +'/destroy?_method=DELETE'
+            deleteForm.submit();
+        }
+
+        restoreBtn.forEach((resBtn) =>{
+            resBtn.addEventListener('click',(e)=>{
+                e.preventDefault();
+                
+                var teachName = resBtn.getAttribute('data-ten');
+                restoreForm.action = '/editteachers/'+ teachName +'/restore?_method=PATCH'
+                restoreForm.submit();
+            })
+       }) 
+    });
+</script>
+
+{{!-- Các nút check box --}}
+<script>
+    var checkBoxAll = document.querySelectorAll('#checkbox-all')
+    var checkBoxItem = document.querySelectorAll('input[name="teacherId[]"]')
+    var restoreAllBtn = document.querySelectorAll('.btn-restoreAll')
+    var deleteAllBtn = document.querySelectorAll('.btn-deleteAll')
+    var fullFormRe = document.forms['full-form-restore']
+   
+    
+    document.addEventListener('DOMContentLoaded',()=>{
+        // Tạo event cho nút select all khi nhấn vào thì sẽ select hết các checkBoxItem
+        checkBoxAll.forEach((checkAll)=>{
+            checkAll.addEventListener('click',(e)=>{
+                var isCheckedAll = e.target.checked;
+                checkBoxItem.forEach(checkItem=>
+                    checkItem.checked = isCheckedAll);
+                    appearButtonR();
+                    appearButtonD();
+                })
+            });
+        // Tạo event cho các check box item khi click hết vào checkbox thì checkBoxAll sẽ hiện lên
+        checkBoxItem.forEach((checkItem) =>{
+            checkItem.addEventListener('click',(e)=>{
+                var isCheckItem = checkBoxItem.length === document.querySelectorAll('input[name="teacherId[]"]:checked').length;
+                checkBoxAll.forEach(checkAll =>
+                checkAll.checked = isCheckItem);
+                appearButtonR();
+                appearButtonD();
+            })
+        });
+        // appear buuton delete
+        function appearButtonR(){
+            var checkedCount = document.querySelectorAll('input[name="teacherId[]"]:checked').length;
+            if(checkedCount >0)
+            {
+                restoreAllBtn.forEach(btnRe=> btnRe.classList.remove('disabled'));
+                
+            }
+            else{
+                restoreAllBtn.forEach(btnRe=> btnRe.classList.add('disabled'));
+                
+            }
+        }
+        function appearButtonD(){
+            var checkedCount = document.querySelectorAll('input[name="teacherId[]"]:checked').length;
+            var deleteAllBtn = document.querySelector('button[name="delete-allTeacher"]');
+
+            if (checkedCount > 0) {
+                deleteAllBtn.disabled = false; // Enable button
+            } else {
+                deleteAllBtn.disabled = true; // Disable button
+            }
+        };
+        restoreAllBtn.forEach((checkAll) =>{
+            checkAll.addEventListener('click',(e)=>{
+                e.preventDefault();
+                var isRestoreAble = !$(this).hasClass('disabled');
+                if(isRestoreAble)
+                {
+                    fullFormRe.submit();
+                }
+            })
+        })
+        
+        
+        
+    })
+        
+   
+
+
+</script>

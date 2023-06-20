@@ -1,0 +1,23 @@
+<div  class="news">
+<form method="" action="">
+  {{#each sales}}
+  <div class="form-group">
+    <label for="search-input">{{this.item}}</label>
+    <input type="text" class="form-control" name="q" id="search-input"  placeholder="Nhập từ khóa">
+   
+  </div>
+  {{/each}}
+   <div class="form-group">
+    <label for="gender-input">Từ khóa</label>
+    <select name="gender" class="form-control" name="q" id="gender-input"  >
+      <option value="">---Chọn giới tính---</option>
+      <option value="male">Nam</option>
+      <option value="female">Nữ</option>
+    </select>
+   
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+
+</div>

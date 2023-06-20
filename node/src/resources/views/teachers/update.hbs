@@ -1,0 +1,36 @@
+<div class="mt-4">
+    <form method="post" action="/editteachers/{{teachers.hoTen}}?_method=PUT" class="form-write" >
+        <div class="form-row">
+                <div class="col">
+                    <label for="id" >Nhập Id</label>
+                    <input type="text" class="form-control" value="{{teachers._id}}" id="_id" name="_id" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="hoTen" class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" value="{{teachers.hoTen}}" id="hoTen"name="hoTen" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="gioiTinh" class="form-label">Giới tính</label>
+                    <input type="text" class="form-control" value="{{teachers.gioiTinh}}" id="gioiTinh"name="gioiTinh" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="lop" class="form-label">Lớp</label>
+                    <input type="text" class="form-control" value="{{teachers.lop}}" id="lop"name="lop" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="img" class="form-label">Image</label>
+                    <input type="text" class="form-control" value="{{teachers.img}}" id="img"name="img" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <input type="text" class="form-control" value="{{teachers.description}}" id="description"name="description" style="width: 500px;">
+                </div>
+
+            </div>
+            <div class="sua" style="text-align: center;">
+                <button type="submit" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Sửa</button>
+            </div>
+        
+    </form>
+
+</div>
