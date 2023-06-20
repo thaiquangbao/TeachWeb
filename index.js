@@ -4,9 +4,9 @@ const app = express();
 const port = 4000;
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
-const SortMiddleware = require('./app/middlewares/SortMiddleware')
-const route = require('./routes');
-const db = require('./config/db');
+const SortMiddleware = require('./node/src/app/middlewares/SortMiddleware')
+const route = require('./node/src/routes');
+const db = require('./node/src/config/db');
 const methodOverride = require('method-override')
 
 // HTTP logger
@@ -16,7 +16,7 @@ app.engine(
   'hbs',
   engine({
     extname: '.hbs',
-    helpers: require('./helpers/handlebar')
+    helpers: require('./node/src/helpers/handlebar')
   }) 
 );
 app.use(
@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(SortMiddleware)
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resources/views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'node/src/resources/views'));
+app.use(express.static(path.join(__dirname, 'node/src/public')));
 
 route(app);
 db.connect();

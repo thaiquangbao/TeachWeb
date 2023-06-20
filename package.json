@@ -2,13 +2,13 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "node/src/index.js",
+  "main": "ndex.js",
   "engines": {
     "node": "18.x"
   },
   "scripts": {
     "beautiful": "prettier --single-quote --trailing-comma all --write \"node/src/**/*.{js,json,scss}\" ",
-    "start": "nodemon --inspect node/src/index.js",
+    "start": "nodemon --inspect index.js",
     "watch": "node-sass --watch node/src/resources/scss/ -o node/src/public/css/  ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
