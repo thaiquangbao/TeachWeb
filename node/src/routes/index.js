@@ -4,7 +4,9 @@ const teacherRoute= require('./teachers')
 const hocvienRoute = require('./hocviens')
 const editCourseRoute = require('./editcourse')
 const editteachersRoute= require('./editteachers')
+const profileRoute = require('./profiles')
 function route(app) {
+  app.use('/profiles',profileRoute);
   app.use('/editcourse',editCourseRoute);
   app.use('/hocviens',hocvienRoute);
   app.use('/teachers',teacherRoute);

@@ -213,6 +213,52 @@ footer p {
   }
   
 }
+.avatar{
+  display: flex;
+
+ .HoTen{
+  margin-top: 2px;
+  margin-left: 5px;
+ }
+  img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 50px;
+  }
+ 
+}
+.menu-and-treatment{
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 1px;
+  & .menus {
+    padding:  30px;
+    margin-left: 5px;
+    & .link {
+        text-decoration: none;
+        color: #afaeae;
+    }
+    & .menu-item {
+        font-size: 17px;
+        text-align: start;
+        margin: 15px 0;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    & .active  {
+        color: black;
+    }
+
+    & .cut-across {
+        padding: 5px 0;
+        border-bottom: 1px solid  #cecccc;
+    }
+  }
+ 
+}
 
 
 

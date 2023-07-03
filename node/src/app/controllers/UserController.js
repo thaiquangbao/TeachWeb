@@ -26,5 +26,6 @@ class UserController {
       })
       .catch(next);
   }
+
 }
 module.exports = new UserController();

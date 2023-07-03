@@ -172,3 +172,37 @@ footer p {
 .form-inline .form-control {
   margin-left: 500px;
   width: 500px; }
+
+.avatar {
+  display: flex; }
+  .avatar .HoTen {
+    margin-top: 2px;
+    margin-left: 5px; }
+  .avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 50px; }
+
+.menu-and-treatment {
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 1px; }
+  .menu-and-treatment .menus {
+    padding: 30px;
+    margin-left: 5px; }
+    .menu-and-treatment .menus .link {
+      text-decoration: none;
+      color: #afaeae; }
+    .menu-and-treatment .menus .menu-item {
+      font-size: 17px;
+      text-align: start;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: 0.5s; }
+    .menu-and-treatment .menus .active {
+      color: black; }
+    .menu-and-treatment .menus .cut-across {
+      padding: 5px 0;
+      border-bottom: 1px solid  #cecccc; }
