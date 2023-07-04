@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <div class="avatar">
+        <img src="{{teachers.img}}" alt="">
+        <div class="HoTen">
+            <h1>{{teachers.hoTen}}</h1>
+            <p>Update your username and manage your account</p>
+        </div> 
+    </div> 
+    <div class="col-lg-12 menu-and-treatment" style="display: flex; sans-serif;">
+        <div class="col-lg-4 menus " style="margin-top: 10px;">
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/profiles/general">General</a></div>
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/profiles/editprofile">Edit Profile</a></div>
+            <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/profiles/editpassword">Password</a></div>
+            <div class='cut-across'></div>
+            <div class='menu-item'  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
+        </div>
+        <div class="col-lg-8 " >
+            <div class="changeava">
+                <img src="{{teachers.img}}" alt="" class="ava">
+                 <div class="form-ava" >
+                    <input ref=" "type="file" class="image-user" accept=".jpg, .jpeg, .png"/><br>
+                    <div class="btns">
+                        <button onClick="" class="btn-save">Save Picture</button>
+                        <button onClick="" class="btn-del">Delete</button>
+                    </div>
+                </div> 
+            </div>
+            <form method="post" action="/profiles/editprofile/edit/?_method=PUT" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label for="username">Giới tính</label>
+                    <input type="username" class="form-control" id="username" name="gioiTinh" value="{{teachers.gioiTinh}}" > 
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Lớp </label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="lop" value="{{teachers.lop}}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Date Of Birth </label>
+                    <input type="date" class="form-control date" name="dateOfBirth" value="{{teachers.dateOfBirth}}" >
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea class="form-control" id="bio" rows="3" name="bio" >{{teachers.bio}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="float: right;">Save Change</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+

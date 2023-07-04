@@ -174,7 +174,8 @@ footer p {
   width: 500px; }
 
 .avatar {
-  display: flex; }
+  display: flex;
+  margin-left: 30px; }
   .avatar .HoTen {
     margin-top: 2px;
     margin-left: 5px; }
@@ -186,15 +187,10 @@ footer p {
     margin-right: 50px; }
 
 .menu-and-treatment {
-  display: flex;
-  font-family: 'Roboto', sans-serif;
-  margin-left: 1px; }
+  font-family: 'Roboto', sans-serif; }
   .menu-and-treatment .menus {
-    padding: 30px;
-    margin-left: 5px; }
-    .menu-and-treatment .menus .link {
-      text-decoration: none;
-      color: #afaeae; }
+    margin-left: 1px;
+    border-right: 1px solid  #cecccc; }
     .menu-and-treatment .menus .menu-item {
       font-size: 17px;
       text-align: start;
@@ -205,4 +201,43 @@ footer p {
       color: black; }
     .menu-and-treatment .menus .cut-across {
       padding: 5px 0;
-      border-bottom: 1px solid  #cecccc; }
+      width: 300px;
+      border-bottom: 1px solid  #cecccc;
+      margin-left: 1px; }
+  .menu-and-treatment .treatment {
+    background-color: aqua; }
+
+.changeava {
+  display: flex;
+  margin-left: 2px; }
+  .changeava .form-ava {
+    margin-top: 2px;
+    margin-left: 5px; }
+  .changeava .ava {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 50px; }
+
+.btns {
+  display: flex;
+  align-items: center; }
+  .btns .btn-save {
+    margin: 10px 0;
+    border: 0;
+    background-color: #ea4c89;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-right: 10px; }
+  .btns .btn-del {
+    margin: 10px 0;
+    border: 0;
+    background-color: #ededed;
+    color: black;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-right: 10px; }

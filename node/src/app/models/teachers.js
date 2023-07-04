@@ -9,7 +9,10 @@ const teacher = new Schema({
     hoTen: {type:String },
     lop:{type:String},
     img:{type:String},
-    description:{type:String}
+    description:{type:String},
+    email:{type:String},
+    dateOfBirth:{type:Date},
+    bio :{type:String}
 },{
     timestamps:true,
 });

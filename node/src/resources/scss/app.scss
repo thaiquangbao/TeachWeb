@@ -215,7 +215,7 @@ footer p {
 }
 .avatar{
   display: flex;
-
+  margin-left: 30px;
  .HoTen{
   margin-top: 2px;
   margin-left: 5px;
@@ -230,17 +230,14 @@ footer p {
  
 }
 .menu-and-treatment{
-  display: flex;
+  
   font-family: 'Roboto', sans-serif;
-  margin-left: 1px;
-  & .menus {
-    padding:  30px;
-    margin-left: 5px;
-    & .link {
-        text-decoration: none;
-        color: #afaeae;
-    }
-    & .menu-item {
+  
+   .menus {
+    margin-left: 1px;
+    border-right: 1px solid  #cecccc;
+   
+    .menu-item {
         font-size: 17px;
         text-align: start;
         margin: 15px 0;
@@ -248,17 +245,67 @@ footer p {
         transition: 0.5s;
     }
 
-    & .active  {
+    .active  {
         color: black;
+        
     }
 
-    & .cut-across {
+     .cut-across {
         padding: 5px 0;
+        width: 300px;
         border-bottom: 1px solid  #cecccc;
+        margin-left: 1px;
     }
+  }
+  .treatment{
+    background-color: aqua;
   }
  
 }
+.changeava{
+  display: flex;
+  margin-left: 2px;
+ .form-ava{
+  margin-top: 2px;
+  margin-left: 5px;
+ }
+  .ava{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 50px;
+  }
+ 
+}
+.btns {
+
+  display: flex;
+  align-items: center;
+  
+   .btn-save{
+      margin: 10px 0;
+      border: 0;
+      background-color: #ea4c89;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      margin-right: 10px;
+  }
+
+   .btn-del{
+      margin: 10px 0;
+      border: 0;
+      background-color: #ededed;
+      color: black;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      margin-right: 10px;
+  }
+}
+
 
 
 

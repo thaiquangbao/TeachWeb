@@ -5,6 +5,9 @@ module.exports={
         return mongooses.map(mongoose => mongoose.toObject());
     },
     mongooseToObject: function (mongoose){
-        return mongoose ? mongoose.toObject() : mongoose;
+        let obj = mongoose.toObject()
+        obj.dateOfBirth = mongoose.toObject().dateOfBirth.toISOString().split('T')[0]
+        
+        return mongoose ? obj : mongoose;
     }
 };
