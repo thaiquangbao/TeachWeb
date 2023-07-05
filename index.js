@@ -8,7 +8,7 @@ const SortMiddleware = require('./node/src/app/middlewares/SortMiddleware')
 const route = require('./node/src/routes');
 const db = require('./node/src/config/db');
 const methodOverride = require('method-override')
-
+const dotenv = require('dotenv')
 // HTTP logger
 app.use(morgan('combined'));
 //template engine
@@ -23,13 +23,14 @@ app.use(
   express.urlencoded({
     extended: true,
   }));
+app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(SortMiddleware)
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'node/src/resources/views'));
 app.use(express.static(path.join(__dirname, 'node/src/public')));
-
+dotenv.config()
 route(app);
 db.connect();
 

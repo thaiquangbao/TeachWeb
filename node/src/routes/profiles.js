@@ -1,6 +1,10 @@
 const express = require('express')
 const profileRouter = express.Router();
 const profileController = require('../app/controllers/ProfileController')
+const upload = require('../config/uploader')
+
+
+profileRouter.post('/editAvatar/edit',upload.single('image'),profileController.editAvatar)
 profileRouter.put('/editprofile/edit',profileController.editProfile)
 profileRouter.put('/general/edit',profileController.editGeneral)
 profileRouter.get('/editpassword',profileController.showPassword)

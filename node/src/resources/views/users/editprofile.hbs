@@ -15,16 +15,18 @@
             <div class='menu-item'  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
         </div>
         <div class="col-lg-8 " >
-            <div class="changeava">
-                <img src="{{teachers.img}}" alt="" class="ava">
-                 <div class="form-ava" >
-                    <input ref=" "type="file" class="image-user" accept=".jpg, .jpeg, .png"/><br>
-                    <div class="btns">
-                        <button onClick="" class="btn-save">Save Picture</button>
-                        <button onClick="" class="btn-del">Delete</button>
-                    </div>
-                </div> 
-            </div>
+            <form action="/profiles/editAvatar/edit" method="post">
+                <div class="changeava">
+                    <img src="{{teachers.img}}" alt="" class="ava">
+                        <div class="form-ava" >
+                            <input type="file" class="image-user" name="image" accept=".jpg, .png"/><br>
+                            <div class="btns">
+                                <button type="submit" name="image" class="btn-save">Save Picture</button>
+                                <button onClick="" class="btn-del">Delete</button>
+                            </div>
+                        </div> 
+                </div>    
+            </form> 
             <form method="post" action="/profiles/editprofile/edit/?_method=PUT" style="margin-top: 20px;">
                 <div class="form-group">
                     <label for="username">Giới tính</label>
@@ -48,4 +50,7 @@
         </div>
     </div>
 </div>
+<script>
+var img 
 
+</script>
