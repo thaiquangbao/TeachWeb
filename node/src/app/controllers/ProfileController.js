@@ -38,13 +38,15 @@ class ProfileController{
         .catch(next)
     }
     editAvatar(req,res,next){
-    teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:req.file.path})
-        .then(user => {
-            res.json({code : 200 ,message: 'success'})
-        })
-        .catch(error =>{
-            res.json({code : 500 , message: 'fail'})
-        })
+    //teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:req.file.path})
+        const formData = req.file
+        console.log(formData);
+        // .then(user => {
+        //     res.json({code : 200 ,message: 'success'})
+        // })
+        // .catch(error =>{
+        //     res.json({code : 500 , message: 'fail'})
+        // })
     }
     showPassword(req,res){
         teachers.findOne({hoTen:'Thái Quang Bảo'})
