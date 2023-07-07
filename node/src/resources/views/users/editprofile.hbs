@@ -15,13 +15,13 @@
             <div class='menu-item'  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
         </div>
         <div class="col-lg-8 " >
-            <form action="/profiles/editAvatar/edit" method="post">
+            <form id="form-picture" >
                 <div class="changeava">
                     <img src="{{teachers.img}}" alt="" class="ava">
                         <div class="form-ava" >
-                            <input type="file" class="image-user" name="img" accept=".jpg, .png"/><br>
+                            <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
                             <div class="btns">
-                                <button type="submit" name="img"  class="btn-save">Save Picture</button>
+                                <button type="submit" class="btn-save">Save Picture</button>
                                 <button onClick="" class="btn-del">Delete</button>
                             </div>
                         </div> 
@@ -51,6 +51,17 @@
     </div>
 </div>
 <script>
-var img 
+    
+    const form = document.getElementById('form-picture')
+    const file = document.querySelector('.image-user')
+      form.addEventListener('submit', () => {
+        const formData = new FormData()
+        formData.append('image', file.files[0])
+        const response = await fetch('http://localhost:4000/profiles/editAvatar/edit', {
+            method: 'POST',
+            body: formData
+        });
+    })
+
 
 </script>

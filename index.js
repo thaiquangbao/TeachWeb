@@ -9,6 +9,13 @@ const route = require('./node/src/routes');
 const db = require('./node/src/config/db');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
+const cors = require('cors');
+
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:4000']
+}));
+
 // HTTP logger
 app.use(morgan('combined'));
 //template engine

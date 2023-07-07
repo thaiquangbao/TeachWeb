@@ -11,7 +11,7 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  allowedFormats: ['jpg', 'png'],
+  allowedFormats: ['jpeg','jpg', 'png'],
  params :{
   folder:'Teach-Node'
  }
