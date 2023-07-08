@@ -38,8 +38,10 @@ class ProfileController{
         .catch(next)
     }
     editAvatar(req,res,next){
-        res.send('ok ròi đó')
         
+        teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:req.file.path})
+        .then(res.redirect('/profiles/editprofile'))
+        .catch(next)
     }
     showPassword(req,res){
         teachers.findOne({hoTen:'Thái Quang Bảo'})
