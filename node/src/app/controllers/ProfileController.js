@@ -43,6 +43,11 @@ class ProfileController{
         .then(res.redirect('/profiles/editprofile'))
         .catch(next)
     }
+    deleteAvatar(req,res,next){
+        teachers.deleteOne({img: req.params.img})
+        .then(res.redirect('/profiles/editprofile'))
+        .catch(next)
+    }
     showPassword(req,res){
         teachers.findOne({hoTen:'Thái Quang Bảo'})
         .then(teachers => {
@@ -55,5 +60,6 @@ class ProfileController{
         })
         
     }
+   
 }
 module.exports= new ProfileController();

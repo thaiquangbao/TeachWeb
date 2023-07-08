@@ -3,7 +3,7 @@ const profileRouter = express.Router();
 const profileController = require('../app/controllers/ProfileController')
 const uploadCloud = require('../config/uploader')
 
-
+profileRouter.delete('/deleteAvatar/edit',profileController.deleteAvatar)
 profileRouter.post('/editAvatar/edit',uploadCloud.single('img'),profileController.editAvatar)
 profileRouter.put('/editprofile/edit',profileController.editProfile)
 profileRouter.put('/general/edit',profileController.editGeneral)
