@@ -11,8 +11,9 @@ class ProfileController{
             })
         })
         .catch(error =>{
-            
+            console.log(error)
         })
+       
         
     }
     editGeneral(req,res,next){
@@ -44,7 +45,7 @@ class ProfileController{
         .catch(next)
     }
     deleteAvatar(req,res,next){
-        teachers.deleteOne({img: req.params.img})
+        teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:" "})
         .then(res.redirect('/profiles/editprofile'))
         .catch(next)
     }

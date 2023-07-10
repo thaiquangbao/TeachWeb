@@ -10,6 +10,7 @@ const db = require('./node/src/config/db');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const cors = require('cors');
+const pug = require('pug');
 
 app.use(cors({
   credentials: true,
@@ -26,6 +27,13 @@ app.engine(
     helpers: require('./node/src/helpers/handlebar')
   }) 
 );
+app.pug(
+  'pug',
+  engine({
+    extname: '.pug',
+
+  }) 
+);
 app.use(
   express.urlencoded({
     extended: true,
@@ -34,8 +42,14 @@ app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(SortMiddleware)
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'node/src/resources/views'));
+app.set('view engine', 'pug');
+app.set('views2', path.join(__dirname, 'node/src/resources/views2'));
+
+
+
 app.use(express.static(path.join(__dirname, 'node/src/public')));
 dotenv.config()
 route(app);

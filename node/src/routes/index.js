@@ -5,6 +5,7 @@ const hocvienRoute = require('./hocviens')
 const editCourseRoute = require('./editcourse')
 const editteachersRoute= require('./editteachers')
 const profileRoute = require('./profiles')
+const accountRoute = require('./accounts')
 function route(app) {
   app.use('/profiles',profileRoute);
   app.use('/editcourse',editCourseRoute);
@@ -12,6 +13,7 @@ function route(app) {
   app.use('/teachers',teacherRoute);
   app.use('/editteachers',editteachersRoute);
   app.use('/users', userRoute);
+  app.use('/account',accountRoute);
   app.use('/', siteRoute);
 
   //   app.post('/news', (req, res) => {
