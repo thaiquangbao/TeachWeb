@@ -24,10 +24,7 @@ const users= new Schema({
         type : Date,
         require : true
     },
-    admin : {
-        type : Boolean,
-        default : false
-    },
+    
     bio : {
         type : String,
         require : true,
