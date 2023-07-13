@@ -1,3 +1,7 @@
+<script
+  src="https://code.jquery.com/jquery-3.7.0.min.js"
+  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+  crossorigin="anonymous"></script>
  <div class="container-fluid mt-2" style="">
    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color: rgb(0, 153, 255); width: 1500px; border-radius: 30px ">
         <ol class="carousel-indicators">
@@ -119,7 +123,7 @@
         
                 <div class="card bg-glass">
                     <div class="card-body px-4 py-5 px-md-5">
-                    <form action="" method="POST">
+                    
                         <!-- 2 column grid layout with text inputs for the first and last names -->
                         <div class="row" style="margin-top: 20px;">
                         <h1 class="mb-3 h3">Login</h1>
@@ -127,18 +131,18 @@
                         </div>
         
                             <div class="form-group" >
-                                <label for="exampleInputEmail1" style="float: left;">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="" style="float: left;">UserName</label>
+                                <input type="text" class="form-control" id="username" name="username"  placeholder="">
 
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1" style="float: left;">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                             </div>
         
         
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                        <button  onclick="login()" class="btn btn-primary btn-block mb-4">
                         Sign In
                         </button>
         
@@ -147,7 +151,7 @@
                         <p>Don't have an account yet? <a href="/account/signup">Register</a></p>
                         
                         </div>
-                    </form>
+                    
                     </div>
                 </div>
                 </div>
@@ -155,3 +159,24 @@
         </div>
     </section>
 </div>
+<script>
+    function login() {
+        $.ajax({
+            url: '/account/signin/login',
+            type: 'POST',
+            data:{
+                username : $('#username').val(),
+                password :  $('#password').val(),
+            }
+        })
+        .then(data =>{
+            console.log(data)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    }
+</script>
+
+{{!-- <form action="/account/signin/login" method="POST"></form>
+</form> --}}

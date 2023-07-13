@@ -1,5 +1,6 @@
 const Users =require('../models/users')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 class AcountController{
     showsigin(req,res){
         res.render('welcome')
@@ -43,7 +44,41 @@ class AcountController{
           });
       }
     signin(req,res){
-
+      Users.findOne({username: req.body.username})
+      .then(data=>{
+        if (!data) {
+          res.status(400).json('Tài khoản k đúng')
+          
+        }
+        else{
+          bcrypt.compare(req.body.password,data.password)
+          .then(validPass =>{
+            if (!validPass) {
+              res.status(400).json('Mật khẩu k đúng')
+            }
+            else{
+              const token = jwt.sign({
+                _id:data._id
+                
+              },
+                process.env.MY_SERECT_KEY,
+                { expiresIn: '1d' }
+              );
+              res.status(200).json({ token: token });
+              //res.redirect('/')
+            }
+          })
+          
+          
+          
+          .catch(error => {
+            res.json({ code: 404, message: 'Login Failed' });
+        });
+        } })
+        .catch(error => {
+          
+          res.json('Đăng nhập không thành công')
+        })
     }
     
 
