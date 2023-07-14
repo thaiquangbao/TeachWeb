@@ -39,7 +39,7 @@ class AcountController{
               res.redirect('/account/signup');
             }
           })
-          .catch(err => {
+          .catch(error => {
             res.status(500).json('Tạo k thành công');
           });
       }

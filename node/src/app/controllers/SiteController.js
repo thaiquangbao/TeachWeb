@@ -1,4 +1,5 @@
 const sales = require('../models/sales')
+const users = require('../models/users')
 const {multipleMongooseToObject} = require('../../until/mongoose')
 
 class SiteController {
