@@ -35,7 +35,7 @@ class AcountController{
                   res.status(500).json('Tạo k thành công do trùng username or password');
                 });
             } else {
-              console.log('Trùng dữ liệu');
+              res.json('Trùng dữ liệu');
               res.redirect('/account/signup');
             }
           })
@@ -65,10 +65,10 @@ class AcountController{
                 { expiresIn: '1d' }
               );
               res.status(200).json({ token: token });
-              //res.redirect('/')
+              
             }
           })
-          
+          //.then(res.redirect('/'))
           
           
           .catch(error => {

@@ -10,13 +10,13 @@ const db = require('./node/src/config/db');
 const methodOverride = require('method-override')
 const dotenv = require('dotenv')
 const cors = require('cors');
-
+var cookieParser = require('cookie-parser')
 
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:4000']
 }));
-
+app.use(cookieParser())
 // HTTP logger
 app.use(morgan('combined'));
 //template engine
