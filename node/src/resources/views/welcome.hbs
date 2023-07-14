@@ -159,27 +159,29 @@
         </div>
     </section>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
  <script >
    
-    var loginBtn = document.querySelector('.login')
-   
-        function login() {
-        $.ajax({
-            url: '/account/signin/login',
-            type: 'POST',
-            data:{
-                username : $('#username').val(),
-                password :  $('#password').val(),
-            }
-        })
-        .then(data =>{
-            console.log(data)
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+    
+    function login() {
+         $.ajax({
+                url: '/account/signin/login',
+                        type: 'POST',
+                        data:{
+                            username : $('#username').val(),
+                            password :  $('#password').val(),
+                        }
+                    })
+                    .then(data =>{
+                        console.log(data)
+                        
+                    })
+                    .catch(error =>{
+                        console.log(error)
+                })
     }
+       
+    
 
     
 </script>

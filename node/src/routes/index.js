@@ -6,7 +6,7 @@ const editCourseRoute = require('./editcourse')
 const editteachersRoute= require('./editteachers')
 const profileRoute = require('./profiles')
 const accountRoute = require('./accounts')
-//const checkUser = require('../app/middlewares/CheckUser')
+
 function route(app) {
   app.use('/profiles',profileRoute);
   app.use('/editcourse',editCourseRoute);
