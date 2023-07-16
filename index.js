@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 4000;
+const port = 10000;
 const morgan = require('morgan');
 const { engine } = require('express-handlebars');
 const SortMiddleware = require('./node/src/app/middlewares/SortMiddleware')
@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser')
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4000']
+  origin: ['http://localhost:6000']
 }));
 app.use(cookieParser())
 // HTTP logger

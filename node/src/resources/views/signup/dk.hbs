@@ -119,7 +119,7 @@
         
                 <div class="card bg-glass">
                     <div class="card-body px-4 py-5 px-md-5">
-                    <form action="/account/signup/sign" method="post" onclick="">
+                   
                         <!-- 2 column grid layout with text inputs for the first and last names -->
                         <div class="row" style="margin-top: 20px;">
                         <h1 class="mb-3 h3">Đăng ký</h1>
@@ -128,29 +128,29 @@
         
                             <div class="form-group" >
                                 <label for="" style="float: left;">UserName</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="" required>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="" >
 
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1" style="float: left;">Password</label>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="" required>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="" >
                             </div>
                             <div class="form-group">
                                 <label for="" style="float: left;">Email</label>
-                                <input type="email" name="email" class="form-control" id="email" required>
+                                <input type="email" name="email" class="form-control" id="email" >
                             </div>
                             <div class="form-group">
                                 <label for="" style="float: left;">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="" >
                             </div>
                             <div class="form-group">
                                 <label for="" style="float: left;">Date Of Birth</label>
-                                <input type="date"  class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="" required>
+                                <input type="date"  class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="" >
                             </div>
         
         
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                        <button type="submit" class="btn btn-primary btn-block mb-4 signup" onclick="signup()">
                             Đăng ký
                         </button>
         
@@ -159,7 +159,7 @@
                         <p>You had account! <a href="/account">Đăng nhập</a></p>
                         
                         </div>
-                    </form>
+                    
                     </div>
                 </div>
                 </div>
@@ -168,23 +168,70 @@
     </section>
 </div>
 <script>
-    
-   
-    function validateForm(event) {
-        var textInput = document.querySelectorAll('input')
-        textInput.forEach((e) =>{
-            
-            if (e.value === "") {
-                event.preventDefault(); // Ngăn chặn gửi biểu mẫu nếu trường "username" rỗng
-                alert("Vui lòng nhập giá trị ");
-                
-                return
+    function signup(){
+            var usn = $('#username').val();
+            var pass = $('#password').val();
+            var mail = $('#email').val();
+            var name = $('#name').val()
+            var date = $('#dateOfBirth').val();
+            if (usn.trim() === '' || pass.trim() === '' || mail.trim() === '' || name.trim() === '' || date.trim() === '' ) 
+            {
+                alert('Vui lòng nhập vào form');
+                return;
             }
-            
-        })
-        
+            $.ajax({
+                url: '/account/signup/sign',
+                    type: 'POST',
+                    data:{
+                        username: usn,
+                        password : pass,
+                        email :mail,
+                        name : name,
+                        dateOfBirth:date
+                    }
+            })
+            .then(data=>{
+                alert('Tạo thành công')
+                window.location.href= "/account/signin"
+            })
+            .catch(error=>{
+
+                alert('Tài khoản or email bị trùng')
+            })
     }
+   
+
+        
 
      
 
 </script>
+{{!-- <form action="/account/signup/sign" method="post" onclick=""></form>
+ --}}
+ {{!-- $.ajax({
+                url: '/account/signup/sign',
+                    type: 'POST'
+                    data{
+                        username: usn,
+                        password : pass,
+                        email :mail,
+                        name : name,
+                        dateOfBirth:date
+                    }
+            })
+            .then(data=>{
+                if(data.usernameExist || data.emailExists)
+                {
+                    alert('Tên người dùng or email đã tồn')
+                    return
+                }
+                else{
+                    alert('Đăng ký thành công')
+                    
+                }
+                
+                
+            })
+            .catch(error =>{
+                alert('Tạo không thành công')
+            }); --}}

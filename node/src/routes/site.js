@@ -3,7 +3,7 @@ const useRouter = express.Router();
 
 const siteController = require('../app/controllers/SiteController');
 
-
+useRouter.get('/check-cookie', siteController.checkCookie);
 // useRouter.get('/', siteController.search);
 useRouter.get('/', siteController.index);
 

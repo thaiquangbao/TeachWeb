@@ -9,7 +9,9 @@ class CheckUser{
                     res.json({code : 403, message : "Bạn cần đăng nhập trước khi vào"})
                 }
                 else{
-                    
+                   req._id =  user._id
+
+                   
                     next()
                     
                 }

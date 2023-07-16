@@ -203,6 +203,7 @@
                     .then(data =>{
                         
                         setCookie("token",data.token,1)
+                        window.location.href = "/"
 
                     })
                     .catch(error =>{
