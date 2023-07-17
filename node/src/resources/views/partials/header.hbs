@@ -5,7 +5,7 @@
     </a>
     
     <h1>Viện Đào Tạo Và Chăm Sóc Học Sinh/Sinh Viên 24/24</h1>
-    <img src="{{users.img}}" style="border-radius: 50%; width: 70px; height: 70px;margin-left: 1450px; margin-top: 10px;" alt="" class="logo-f8"  >
+    <img src="" class="avartar-user" style="border-radius: 50%; width: 70px; height: 70px;margin-left: 1450px; margin-top: 10px;" alt="" class="logo-f8"  hidden>
     <ul class="menu" hidden>
         <li><a href="/">Trang chủ</a></li>
         <li><a href="/users">Giới thiệu khóa học</a></li>
@@ -13,8 +13,8 @@
         <li><a href="/teachers">Giảng viên</a></li>
         <li><a href="">Liên hệ</a></li>
         <li class="nav-item dropdown" style="height: 40px;width: 200px;margin-top: 10px; margin-left: 130px;">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" style="padding-top: 0px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Thái Bảo
+          <a class="nav-link dropdown-toggle name-user" href="#" id="navbarDropdown" role="button" style="padding-top: 0px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: blue" >
             <a class="dropdown-item" href="/profiles/general" >Profile</a>
@@ -34,44 +34,45 @@
         type: 'GET',
         
     })
-    .then(data=>{
-      
-    })
+    .then(res=>{
+      if(res.code === 200)
+       {
+          const docIMG = res.currentUser._doc.img
+          $('ul.menu').removeAttr('hidden');
+          $('img.avartar-user').removeAttr('hidden')
+          $('a.name-user').text(res.currentUser._doc.name)
+          if(!docIMG ){
+            $('img.avartar-user').attr('src',"https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png") 
 
+          }
+          else{
+            $('img.avartar-user').attr('src',res.currentUser._doc.img)
+
+          }
+          
+         
+
+       }
+      
+       
+    })
+    .catch(error =>{
+        console.log('Lỗi hệ thống')
+    })
+  function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 </script>
 
-{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#" >Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav> --}}

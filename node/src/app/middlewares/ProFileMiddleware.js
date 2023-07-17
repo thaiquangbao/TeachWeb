@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-class CheckUser{
+class ProFileMiddleWare{
     verifyToken(req,res,next){
          const token = req.cookies.token
             if (token) {
@@ -15,8 +15,8 @@ class CheckUser{
                 }
             })
          }else  {
-            res.redirect('/account')
+            res.json({code : 401, message : "You 're not authentication"})
     }
 }
 }
-module.exports =new CheckUser()
+module.exports = new ProFileMiddleWare()

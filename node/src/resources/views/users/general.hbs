@@ -1,8 +1,8 @@
 <div class="container mt-5">
     <div class="avatar">
-        <img src="{{teachers.img}}" alt="">
+        <img src="{{users.img}}" alt="">
         <div class="HoTen">
-            <h1>{{teachers.hoTen}}</h1>
+            <h1>{{users.name}}</h1>
             <p>Update your username and manage your account</p>
         </div> 
     </div> 
@@ -15,20 +15,64 @@
             <div class='menu-item'  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
         </div>
         <div class="col-lg-8 " >
-            <form method="post" action="/profiles/general/edit/?_method=PUT" >
+           
                 
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="username" class="form-control" id="username" disabled value="{{teachers.hoTen}}"> 
+                    <input type="username" class="form-control" id="username" disabled value="{{users.username}}"> 
                 </div>
                 <div class="form-group">
                     <label for="email">Email </label>
-                    <input type="email" class="form-control" name= "email"id="email" aria-describedby="emailHelp" value="{{teachers.email}}">
+                    <input type="email" class="form-control" name= "email"id="email" aria-describedby="emailHelp" value="{{users.email}}">
                     
                 </div>
-                <button type="submit" class="btn btn-primary" style="float: right;">Save Change</button>
-            </form>
+                <button onclick="saveChange()" type="submit" class="btn btn-primary" style="float: right;">Save Change</button>
+            
 
         </div>
     </div>
 </div>
+<script>
+    function saveChange(){
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var username = $('#username').val();
+        var email = $('#email').val();
+        if(email.trim() === '' || !emailRegex.test(email) )
+        {
+            alert('Không được để trống Email và nhập theo form: example@example.com')
+            window.location.reload()
+            return;
+        }
+        
+        $.ajax({
+        url: '/profiles/general/edit', // Đường dẫn tới endpoint kiểm tra cookie
+            type: 'PUT',
+            data:{
+                username : username,
+                email : email
+            }
+        })
+        .then(data =>{
+             if(data.code === 500)
+            {
+                alert('Email đã tồn tại')
+                
+            }
+            else if (data.code === 200){
+                alert('Sửa thành công')
+                
+            }
+            else{
+                alert('Bạn không có quyền được sữa')
+            }
+            window.location.reload()
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+       
+    }
+    
+
+</script>
+

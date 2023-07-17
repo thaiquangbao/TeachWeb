@@ -21,19 +21,28 @@ class SiteController {
     
   }
   checkCookie(req,res,next){
-    var cookies = req.cookies.token
-    var decodeToken = jwt.verify(cookies,process.env.MY_SERECT_KEY)
-    Users.findOne(decodeToken._id)
-    .then(users=>{
-        res.render('partials/header',{
-          users : mongooseToObject(users)
+      const token = req.cookies.token
+      if (token) {
+        jwt.verify(token,process.env.MY_SERECT_KEY,(err,user)=>{
+            if (err) {
+              res.json({ message: false });
+            }
+            else{
+              req._id =  user._id
+              Users.findById(req._id)
+              .then(users=>{
+                const {password, ...currentUser} =users
+                res.json({code:200,currentUser})
+              })
+              .catch(error =>{
+                res.json({code : 404, message : 'Bạn không có trong danh sách người dùng'})
+            })
+            }
         })
-    })
-    .catch(error =>{
-      res.json({code : 403, message : "Bạn cần đăng nhập trước khi vào"})
-    })
-  }
+      }else  {
+        res.json({ message: false });
+      }
 }
-
+}
 
 module.exports = new SiteController();

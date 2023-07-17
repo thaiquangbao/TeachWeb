@@ -1,25 +1,38 @@
-const teachers = require('../models/teachers')
+const Users = require('../models/users')
 const {multipleMongooseToObject} = require('../../until/mongoose');
 const {mongooseToObject} = require('../../until/mongoose');
 
 class ProfileController{
     show(req,res){
-        teachers.findOne({hoTen:'Thái Quang Bảo'})
-        .then(teachers => {
+        Users.findById(req._id)
+        .then(users => {
             res.render('users/general',{
-                teachers : mongooseToObject(teachers)
+                users : mongooseToObject(users)
             })
+            
         })
         .catch(error =>{
-            console.log(error)
+            res.json({code : 404, message : 'Bạn không có trong danh sách người dùng'})
         })
        
         
     }
     editGeneral(req,res,next){
-        teachers.updateOne({hoTen:'Thái Quang Bảo'},{email : req.body.email})
-        .then(res.redirect('/profiles/general'))
-        .catch(next)
+        let validEmail = Users.findOne({ email: req.query.email })
+        let updateEmail = Users.updateOne({_id: req._id},{email : req.body.email})
+        Promise.all([validEmail,updateEmail])
+        .then(([valid,update]) => {
+            if (!valid) {
+                res.json({code :200 , message :'success'})
+            }
+            else{
+                res.json({code : 501 , message: 'fail'})
+            }   
+            
+        })
+        .catch(err => {
+            res.json({code : 500 , message: 'fail'})
+        })
     }
     showEditProfile(req,res){
         teachers.findOne({hoTen:'Thái Quang Bảo'})
