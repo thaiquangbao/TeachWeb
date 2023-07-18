@@ -1,7 +1,8 @@
 const Users = require('../models/users')
 const {multipleMongooseToObject} = require('../../until/mongoose');
 const {mongooseToObject} = require('../../until/mongoose');
-
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 class ProfileController{
     show(req,res){
         Users.findById(req._id)
@@ -35,44 +36,55 @@ class ProfileController{
         })
     }
     showEditProfile(req,res){
-        teachers.findOne({hoTen:'Thái Quang Bảo'})
-        .then(teachers => {
+        Users.findById(req._id)
+        .then(users => {
             res.render('users/editprofile',{
-                teachers : mongooseToObject(teachers)
+                users : mongooseToObject(users)
             })
+            
         })
         .catch(error =>{
-            
+            res.json({code : 404, message : 'Bạn không có trong danh sách người dùng'})
         })
         
     }
     editProfile(req,res,next){
-        teachers.updateOne({hoTen:'Thái Quang Bảo'},{gioiTinh : req.body.gioiTinh,lop : req.body.lop,dateOfBirth : req.body.dateOfBirth,bio : req.body.bio})
+        Users.updateOne({_id: req._id},{name : req.body.name,location : req.body.location,dateOfBirth : req.body.dateOfBirth,bio : req.body.bio})
         .then(res.redirect('/profiles/editprofile'))
         .catch(next)
     }
     editAvatar(req,res,next){
         
-        teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:req.file.path})
+        Users.updateOne({_id: req._id},{img:req.file.path})
         .then(res.redirect('/profiles/editprofile'))
-        .catch(next)
+        .catch(error =>{
+            res.json({code : 500 , message: 'fail'})
+        })
     }
     deleteAvatar(req,res,next){
-        teachers.updateOne({hoTen:'Thái Quang Bảo'},{img:" "})
+        Users.updateOne({_id: req._id},{img:''})
         .then(res.redirect('/profiles/editprofile'))
         .catch(next)
     }
     showPassword(req,res){
-        teachers.findOne({hoTen:'Thái Quang Bảo'})
-        .then(teachers => {
+        Users.findById(req._id)
+        .then(users => {
             res.render('users/password',{
-                teachers : mongooseToObject(teachers)
+                users : mongooseToObject(users)
             })
-        })
-        .catch(error =>{
             
         })
+        .catch(error =>{
+            res.json({code : 404, message : 'Bạn không có trong danh sách người dùng'})
+        })
         
+    }
+    updatePassword(req,res){
+        Users.findById(req._id)
+        .then(user =>{
+            const validPassword = bcrypt.compare(req.body.oldPassword,user.password)
+            console.log(req.body.oldPassword);
+        })
     }
    
 }

@@ -42,7 +42,24 @@ class SiteController {
       }else  {
         res.json({ message: false });
       }
-}
+  }
+  checkToken(req,res){
+    const token = req.cookies.token
+    if (token) {
+        jwt.verify(token, process.env.MY_SERECT_KEY,(err)=>{
+            if(err){
+              res.json({ message: false });
+            }
+            else{
+              res.json({ message: true , token:token});
+            }
+        })
+            
+    } else {
+        res.json({ message: false });
+    }
+}  
+  
 }
 
 module.exports = new SiteController();

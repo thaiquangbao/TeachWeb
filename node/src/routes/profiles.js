@@ -4,6 +4,7 @@ const profileController = require('../app/controllers/ProfileController')
 const uploadCloud = require('../config/uploader')
 const proFileMiddleWare =  require('../app/middlewares/ProFileMiddleware')
 
+profileRouter.put('/editpassword/update',proFileMiddleWare.verifyToken,profileController.updatePassword)
 profileRouter.delete('/deleteAvatar/edit',proFileMiddleWare.verifyToken,profileController.deleteAvatar)
 profileRouter.post('/editAvatar/edit',proFileMiddleWare.verifyToken,uploadCloud.single('img'),profileController.editAvatar)
 profileRouter.put('/editprofile/edit',proFileMiddleWare.verifyToken,profileController.editProfile)

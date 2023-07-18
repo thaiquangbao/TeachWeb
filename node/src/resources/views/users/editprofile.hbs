@@ -1,8 +1,8 @@
 <div class="container mt-5">
     <div class="avatar">
-        <img src="{{teachers.img}}" alt="">
+        <img src="{{users.img}}" alt="">
         <div class="HoTen">
-            <h1>{{teachers.hoTen}}</h1>
+            <h1>{{users.name}}</h1>
             <p>Update your username and manage your account</p>
         </div> 
     </div> 
@@ -17,32 +17,32 @@
         <div class="col-lg-8 " >
             <form id="form-picture" method="post" action="/profiles/editAvatar/edit" enctype="multipart/form-data">
                 <div class="changeava">
-                    <img src= "{{teachers.img}}" alt="" class="ava">
+                    <img src= "{{users.img}}" alt="" class="ava">
                         <div class="form-ava" >
                             <input type="file" class="image-user" name="img"  accept=".jpg, .png"/><br>
                             <div class="btns">
                                 <button type="submit" class="btn btn-save" disabled >Save Picture</button>
-                                <a type="submit" data-img="{{teachers.img}}"   href="" class="btn-del "  >Delete</a>
+                                <a type="submit" data-img="{{users.img}}"   href="" class="btn-del "  >Delete</a>
                             </div>
                         </div> 
                 </div>    
             </form> 
             <form method="post" action="/profiles/editprofile/edit/?_method=PUT" style="margin-top: 20px;">
                 <div class="form-group">
-                    <label for="username">Giới tính</label>
-                    <input type="username" class="form-control" id="username" name="gioiTinh" value="{{teachers.gioiTinh}}" > 
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{users.name}}" required> 
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Lớp </label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="lop" value="{{teachers.lop}}">
+                    <label for="exampleInputEmail1">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" value="{{users.location}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Date Of Birth </label>
-                    <input type="date" class="form-control date" name="dateOfBirth" value="{{teachers.dateOfBirth}}" >
+                    <input type="date" class="form-control date" name="dateOfBirth" value="{{users.dateOfBirth}}" >
                 </div>
                 <div class="form-group">
                     <label for="bio">Bio</label>
-                    <textarea class="form-control" id="bio" rows="3" name="bio" >{{teachers.bio}}</textarea>
+                    <textarea class="form-control" id="bio" rows="3" name="bio" >{{users.bio}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="float: right;">Save Change</button>
             </form>
@@ -95,5 +95,6 @@
     
    
 </script>
+
 
 

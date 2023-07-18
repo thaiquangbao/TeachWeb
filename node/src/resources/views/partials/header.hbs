@@ -22,13 +22,29 @@
             <a class="dropdown-item" href="/editcourse">Sửa khóa học</a>
             <a class="dropdown-item" href="">Khóa học của tui</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/">Đăng xuất</a>           
+            <a class="dropdown-item" href="/account" onclick="deleteCookie()" >Đăng xuất</a>           
           </div>
       </li>
     </ul>
 </header>
 <script>
-  
+  function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function deleteCookie() {
+       $.ajax({
+        url: '/check-token', // Đường dẫn tới endpoint kiểm tra cookie
+        type: 'GET',
+        
+    })
+    .then(data =>{
+      setCookie("token",data.token,0)
+     
+    })
+  };
     $.ajax({
         url: '/check-cookie', // Đường dẫn tới endpoint kiểm tra cookie
         type: 'GET',
@@ -49,12 +65,7 @@
             $('img.avartar-user').attr('src',res.currentUser._doc.img)
 
           }
-          
-         
-
        }
-      
-       
     })
     .catch(error =>{
         console.log('Lỗi hệ thống')
@@ -74,5 +85,8 @@
         }
         return "";
     }
+  
 </script>
+
+
 
