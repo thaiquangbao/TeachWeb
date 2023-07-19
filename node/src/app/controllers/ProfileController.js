@@ -81,10 +81,33 @@ class ProfileController{
     }
     updatePassword(req,res){
         Users.findById(req._id)
-        .then(user =>{
-            const validPassword = bcrypt.compare(req.body.oldPassword,user.password)
-            console.log(req.body.oldPassword);
+        .then(async user =>{
+            const validPassword = await bcrypt.compare(req.body.oldPassword,user.password)
+            if(!validPassword)
+            {
+                res.json({code : 401, message : 'fail'})
+            }
+            else{
+                try {
+                    const salt = await bcrypt.genSalt(10)
+                    const hashed = await bcrypt.hash(req.body.newPassword, salt)
+                    await Users.updateOne({_id: req._id},{password:hashed})
+                    res.json({code : 200, message : 'success'})
+                } catch (error) {
+                    res.json({code : 500, message : 'fail'})
+                }
+            }
+            
+           
         })
+        .catch(error =>{
+            console.log(error);
+        })
+    }
+    deleteUser(req,res){
+        Users.deleteOne({_id:req._id})
+        .then(res.json({code : 200, message : 'success'}))
+        .catch(res.json({code : 500, message : 'fail'}))
     }
    
 }

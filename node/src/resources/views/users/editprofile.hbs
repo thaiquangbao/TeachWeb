@@ -12,7 +12,7 @@
             <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/profiles/editprofile">Edit Profile</a></div>
             <div class='menu-item general active'><a class="dropdown-item" style="width: 300px; margin-left: 1px;" href="/profiles/editpassword">Password</a></div>
             <div class='cut-across'></div>
-            <div class='menu-item'  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
+            <div class='menu-item' onclick="deleteUser()"  style= 'color : red; margin-left: 20px;width: 300px;'>Delete Account</div>
         </div>
         <div class="col-lg-8 " >
             <form id="form-picture" method="post" action="/profiles/editAvatar/edit" enctype="multipart/form-data">
@@ -95,6 +95,38 @@
     
    
 </script>
+<script>
+    function deleteUser(){
+        $.ajax({
+            url : '/profiles/delete-user/?_method=DELETE',
+                type : 'POST'
 
+        })
+        .then(data =>{
+            if(data.code === 200){
+               $.ajax({
+                    url: '/check-token', // Đường dẫn tới endpoint kiểm tra cookie
+                    type: 'GET',
+                    
+                })
+                .then(data =>{
+                setCookie("token",data.token,0)
+                
+                })
+                alert('Xóa account thành công')
+                window.location.href= "/account/signin"
+                return;
+            }
+            else{
+                alert('Fail!')
+            }
+            
+            
+        })
+        .catch(error =>{
+            console.log('Lỗi ròi')
+        })
+    }
+</script>
 
 
