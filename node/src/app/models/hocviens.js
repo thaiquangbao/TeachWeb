@@ -5,15 +5,15 @@ mongoose.plugin(slug);
 
 const hocvien = new Schema({
     _id:{type:Number},
-    hoTen: {Object:{
+    hoTen: {
         ho : String,
         ten : String,
-    }},
+    },
     gioiTinh: {type:String},
     noiSinh: {type:String},
     lop:{type:String},
     img:{type:String},
-    noiSinh:{type:String}
+    
 },{
     timestamps:true,
 });

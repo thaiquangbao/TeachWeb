@@ -14,7 +14,7 @@ class TeacherController{
 
     };
     table(req,res,next){
-        Promise.all([teachers.find({}),teachers.countDocumentsDeleted()])
+        Promise.all([teachers.find({}),teachers.countDocumentsWithDeleted({deleted:true})])
             .then(([teachers,deletedCount])=>
             res.render('teachers/list',{
                 deletedCount ,
@@ -54,7 +54,7 @@ class TeacherController{
             .catch(next);
     }
     trash(req,res,next){
-        teachers.findDeleted({})
+        teachers.findWithDeleted({deleted:true})
         .then(teachers=>{
           res.render('teachers/trash',{
               teachers : multipleMongooseToObject(teachers)

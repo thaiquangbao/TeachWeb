@@ -6,7 +6,7 @@ class EditCourseController{
     show(req,res,next){
         let findCourse = sales.find({}).sortable(req);
        
-        Promise.all([findCourse,sales.countDocumentsDeleted()])
+        Promise.all([findCourse,sales.countDocumentsWithDeleted({deleted:true})])
             .then(([sales,deletedCount]) =>{
                 res.render('courses/edit',{
                     deletedCount,
@@ -55,7 +55,7 @@ class EditCourseController{
         .catch(next);
     }
     trash(req,res,next){
-        sales.findDeleted({})
+        sales.findWithDeleted({ deleted: true })
             .then(sales=>{
                 res.render('courses/trash',{
                     sales: multipleMongooseToObject(sales)

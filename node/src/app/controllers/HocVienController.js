@@ -18,14 +18,26 @@ class HocVienController{
         res.render('sinhviens/themhv');
     }
     insert(req,res,next){
-        res.json (req.body)
-        // const formData = req.body;
-        // const hocvien = new hocviens(formData);
-        // hocvien.save()
-        //     .then(()=> res.redirect('/hocviens'))
-        //     .catch(error=>{
+        
+        const formData = {
+            _id: req.body._id,
+            hoTen:{
+                ho: req.body.ho,
+                ten:req.body.ten,
+            },
+            gioiTinh : req.body.gioiTinh,
+            noiSinh : req.body.noiSinh,
+            lop : req.body.lop,
+            img : req.body.img,
 
-        //     });
+
+        };
+        const hocvien = new hocviens(formData);
+        hocvien.save()
+            .then(()=> res.redirect('/hocviens'))
+            .catch(error=>{
+                console.log(error)
+            });
     }
     edit(req,res,next){
         hocviens.findById(req.params.id)
@@ -37,8 +49,20 @@ class HocVienController{
 
     }
     //[PUT] /hocviens/:id
-    update(req,res,next){    
-        hocviens.updateOne({_id:req.params.id},req.body)
+    update(req,res,next){   
+        const formData = {
+            _id: req.body._id,
+            hoTen:{
+                ho: req.body.ho,
+                ten:req.body.ten,
+            },
+            gioiTinh : req.body.gioiTinh,
+            noiSinh : req.body.noiSinh,
+            lop : req.body.lop,
+            img : req.body.img,
+
+        };
+        hocviens.updateOne({_id:req.params.id},formData)
             .then(()=> res.redirect('/hocviens'))
             .catch(next);
         
