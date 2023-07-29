@@ -10,8 +10,8 @@ const teacher = new Schema({
     lop:{type:String},
     img:{type:String},
     description:{type:String},
-    
-    
+    tinhTrang:String,
+    soLuongKhoaHoc:Number,
 },{
     timestamps:true,
 });

@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <form method="post" action="/editteachers/{{teachers.hoTen}}?_method=PUT" class="form-write" >
+    <form method="post" action="/editteachers/{{teachers.hoTen}}?_method=PUT" class="formnhap" >
         <div class="form-row">
                 <div class="col">
                     <label for="id" >Nhập Id</label>
@@ -24,6 +24,14 @@
                 <div class="col">
                     <label for="description" class="form-label">Mô tả</label>
                     <input type="text" class="form-control" value="{{teachers.description}}" id="description"name="description" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="tinhtrang" class="form-label">Tình trạng</label>
+                    <input type="text" class="form-control" value="{{teachers.tinhTrang}}" id="tinhTrang" name="tinhTrang" style="width: 500px;">
+                </div>
+                <div class="col">
+                    <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
+                    <input type="text" class="form-control" id="soLuongKhoaHoc" value="{{teachers.soLuongKhoaHoc}}" name="soLuongKhoaHoc" style="width: 500px;">
                 </div>
 
             </div>

@@ -40,7 +40,15 @@
                 </div>
                 <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
-                    <input type="text" class="form-control" id="tenGV"name="tenGV" style="width: 500px;">
+                     <select class="form-control" id="" style="width: 500px;">
+                        {{#each teachers}}
+                        
+                        
+                        <option>{{this.hoTen}}</option>
+                        {{/each}}
+                    </select>
+                    {{!-- <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
+                    <input type="text" class="form-control" id="tenGV"name="tenGV" style="width: 500px;"> --}}
                 </div>
                 <div class="col">
                     <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>

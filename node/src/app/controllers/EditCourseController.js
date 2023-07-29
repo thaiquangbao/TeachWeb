@@ -1,4 +1,5 @@
 const sales = require('../models/sales');
+const teachers = require('../models/teachers')
 const {multipleMongooseToObject} = require('../../until/mongoose');
 const {mongooseToObject} = require('../../until/mongoose');
 
@@ -16,6 +17,18 @@ class EditCourseController{
     })
             .catch(next);
     };
+    select(req,res){
+        teachers.find({})
+            .then(teachers =>{
+                /* res.render('courses/create',{
+                    teachers :  multipleMongooseToObject(teachers)
+                }) */
+                console.log(teachers)
+            })
+            .catch(error =>{
+                res.status(500).json('Tạo k thành công');
+            })
+    }
     create(req,res){
         res.render('courses/create')
     }
@@ -25,7 +38,7 @@ class EditCourseController{
         course.save()
             .then(()=> res.redirect('/editcourse')) // truy cập đến trang chính
             .catch(error =>{
-    
+                
             });
             
     
