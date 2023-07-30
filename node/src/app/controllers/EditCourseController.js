@@ -17,38 +17,54 @@ class EditCourseController{
     })
             .catch(next);
     };
-    select(req,res){
-        teachers.find({})
-            .then(teachers =>{
-                /* res.render('courses/create',{
-                    teachers :  multipleMongooseToObject(teachers)
-                }) */
-                console.log(teachers)
-            })
-            .catch(error =>{
-                res.status(500).json('Tạo k thành công');
-            })
-    }
+    
     create(req,res){
-        res.render('courses/create')
+        teachers.find({})
+        .then(teacher =>{
+            res.render('courses/create',{
+                teachers : multipleMongooseToObject(teacher)
+            })
+        })
+        .catch(error =>{
+            res.json('Lỗi')
+        })
+        
     }
     insert(req,res,next){
-        const formData = req.body;
+        // const teacher = teachers.find({})
+        const formData = {
+            item : req.body.item,
+            price : req.body.price,
+            img : req.body.img,
+            trinhDo : req.body.trinhDo,
+            idVideo : req.body.idVideo,
+            soLuongVideo :req.body.soLuongVideo,
+            soGio : req.body.soGio,
+            title : req.body.title,
+            teacher:{
+                hoTen: req.body.hoTen,
+                soLuongKhoaHoc : req.body.soLuongKhoaHoc,
+                tinhTrang : req.body.tinhTrang
+            }
+
+        };
         const course = new sales(formData);
+        
         course.save()
             .then(()=> res.redirect('/editcourse')) // truy cập đến trang chính
             .catch(error =>{
-                
+                res.json('Lỗi rồi')
             });
-            
-    
+        
        };
     edit(req,res,next){
+        const findTeach = teachers.find({});
+        const findItem= sales.findOne({item: req.params.item});
         
-
-        sales.findOne({item: req.params.item})
-            .then(sales => {
+        Promise.all([findTeach,findItem])
+            .then(([teach,sales]) => {
                 res.render('courses/update',{
+                    teachers : multipleMongooseToObject(teach),
                     sales : mongooseToObject(sales)
                 });
             })

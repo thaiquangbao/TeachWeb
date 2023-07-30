@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 //const slug = require('mongoose-slug-generator');
 const slug = require('mongoose-slug-updater');
 const mongooseDelete = require('mongoose-delete');
-
+const teachers = require('../models/teachers')
 const Schema = mongoose.Schema;
 
 //mongoose.plugin(slug2);
@@ -19,10 +19,11 @@ const sale = new Schema({
   soLuongVideo:String,
   soGio:String,
   title:String,
-  giaoVien:String,
-  tenGV: String,
-  soLuongKhoaHoc:Number,
-  tinhTrang:String,
+  teacher: {
+    hoTen : String,
+    soLuongKhoaHoc : Number,
+    tinhTrang : String,
+  },
 },{
   timestamps:true,
 });

@@ -35,20 +35,13 @@
                     <input type="text" class="form-control" value="{{sales.title}}" id="title"name="title" style="width: 500px;">
                 </div>
                 <div class="col">
-                    <label for="giaoVien" class="form-label">Nhập hình giáo viên</label>
-                    <input type="text" class="form-control" value="{{sales.giaoVien}}" id="giaoVien"name="giaoVien" style="width: 500px;">
-                </div>
-                <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
-                    <input type="text" class="form-control" value="{{sales.tenGV}}" id="tenGV"name="tenGV" style="width: 500px;">
-                </div>
-                <div class="col">
-                    <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
-                    <input type="text" class="form-control" value="{{sales.soLuongKhoaHoc}}" id="soLuongKhoaHoc"name="soLuongKhoaHoc" style="width: 500px;">
-                </div>
-                <div class="col">
-                    <label for="tinhTrang" class="form-label">Tình trạng</label>
-                    <input type="text" class="form-control" value="{{sales.tinhTrang}}" id="tinhTrang"name="tinhTrang" style="width: 500px;">
+                    <select class="form-control" id="" name="hoTen"  style="width: 500px;">
+                            <option>{{sales.teacher.hoTen}}</option>
+                            {{#each teachers}}
+                                <option class="ho" data-id="{{this._id}}">{{this.hoTen}}</option>
+                            {{/each}}
+                    </select>
                 </div>
         </div>
             <div class="sua" style="text-align: center;">

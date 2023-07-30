@@ -6,14 +6,15 @@ module.exports={
     },
     mongooseToObject: function (mongoose){
         let obj = mongoose.toObject()
-        let dateOfBirth = obj.dateOfBirth ;
+        let date = obj.dateOfBirth ;
         
         if(obj.img === '') {
             obj.img = "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png"
+           
         }
-        else if (dateOfBirth)
+        else if (date)
         {
-            dateOfBirth = mongoose.toObject().dateOfBirth.toISOString().split('T')[0]
+            date = mongoose.toObject().dateOfBirth.toISOString().split('T')[0]
         }
         
         return mongoose ? obj : mongoose;

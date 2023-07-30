@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Date Of Birth </label>
-                    <input type="date" class="form-control date" name="dateOfBirth" value="{{users.dateOfBirth}}" >
+                    <input type="text" class="form-control date" id="dateOfBirth" name="dateOfBirth" value="{{users.dateOfBirth}}" >
                 </div>
                 <div class="form-group">
                     <label for="bio">Bio</label>
@@ -58,7 +58,23 @@
     var deleteAva = document.querySelector('.btn-del')
     var avartar = document.querySelector('.ava')
     var deleteForm = document.forms['delete-form']
+    var dateBirth = document.querySelector('#dateOfBirth')
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
 
+            return `${day}-${month }-${year}`;
+        }
+    if(dateBirth.value === "" ){
+        alert('Lỗi ngày')
+    }
+    else{
+        dateBirth.value = formatDate(dateBirth.value)
+    }
+    
+    
     checkIMG.onchange = (e) =>{
         const value = e.target.value
         if (!value) {

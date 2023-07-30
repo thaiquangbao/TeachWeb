@@ -35,16 +35,11 @@
                     <input type="text" class="form-control" id="title"name="title" style="width: 500px;">
                 </div>
                 <div class="col">
-                    <label for="giaoVien" class="form-label">Nhập hình giáo viên</label>
-                    <input type="text" class="form-control" id="giaoVien"name="giaoVien" style="width: 500px;">
-                </div>
-                <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
-                     <select class="form-control" id="" style="width: 500px;">
+                     <select class="form-control" id="" name="hoTen" style="width: 500px;">
+                        <option>-- Chọn giáo viên  --</option>
                         {{#each teachers}}
-                        
-                        
-                        <option>{{this.hoTen}}</option>
+                        <option data-id="{{this._id}}">{{this.hoTen}}</option>
                         {{/each}}
                     </select>
                     {{!-- <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
@@ -52,11 +47,11 @@
                 </div>
                 <div class="col">
                     <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
-                    <input type="text" class="form-control" id="soLuongKhoaHoc"name="soLuongKhoaHoc" style="width: 500px;">
+                    <input disabled type="text" class="form-control" id="soLuongKhoaHoc"name="soLuongKhoaHoc" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="tinhTrang" class="form-label">Tình trạng</label>
-                    <input type="text" class="form-control" id="tinhTrang"name="tinhTrang" style="width: 500px;">
+                    <input disabled type="text" class="form-control" id="tinhTrang"name="tinhTrang" style="width: 500px;">
                 </div>
         </div>
             <div class="them" style="text-align: center;">
@@ -66,3 +61,7 @@
     </form>
 
 </div>
+<script>
+    const ten = document.querySelector('option')
+    console.log(ten)
+</script>
