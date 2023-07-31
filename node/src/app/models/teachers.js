@@ -4,7 +4,7 @@ const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const teacher = new Schema({
-    _id:{type: Number},
+    email:{type: String},
     gioiTinh:{type: String},
     hoTen: {type:String },
     lop:{type:String},

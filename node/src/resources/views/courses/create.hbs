@@ -39,20 +39,14 @@
                      <select class="form-control" id="" name="hoTen" style="width: 500px;">
                         <option>-- Chọn giáo viên  --</option>
                         {{#each teachers}}
-                        <option data-id="{{this._id}}">{{this.hoTen}}</option>
+                        <option >{{this.hoTen}}</option>
                         {{/each}}
                     </select>
                     {{!-- <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
                     <input type="text" class="form-control" id="tenGV"name="tenGV" style="width: 500px;"> --}}
                 </div>
-                <div class="col">
-                    <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
-                    <input disabled type="text" class="form-control" id="soLuongKhoaHoc"name="soLuongKhoaHoc" style="width: 500px;">
-                </div>
-                <div class="col">
-                    <label for="tinhTrang" class="form-label">Tình trạng</label>
-                    <input disabled type="text" class="form-control" id="tinhTrang"name="tinhTrang" style="width: 500px;">
-                </div>
+               
+               
         </div>
             <div class="them" style="text-align: center;">
                 <button type="submit" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Thêm</button>
@@ -61,7 +55,3 @@
     </form>
 
 </div>
-<script>
-    const ten = document.querySelector('option')
-    console.log(ten)
-</script>

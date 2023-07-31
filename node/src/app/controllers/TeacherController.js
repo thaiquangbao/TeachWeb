@@ -33,9 +33,9 @@ class TeacherController{
         const formData = req.body;
         const teacher = new teachers(formData)
         teacher.save()
-            .then(()=> res.redirect('/editteachers'))
+            .then(()=> res.json({code:200,form : teacher}))
             .catch(error=>{
-
+                res.json({code:500,message: 'ERROR!'})
             });
     };
     edit(req,res,next){

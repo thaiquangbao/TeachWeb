@@ -1,9 +1,9 @@
 <div class="mt-4" >
-        <form method="post" action="/editteachers/create/insert" class="formnhap" >
+        <form class="formnhap" >
             <div class="form-row">
                 <div class="col">
-                    <label for="id" >Nhập Id</label>
-                    <input type="text" class="form-control" id="_id" name="_id" style="width: 500px;">
+                    <label for="email" >Nhập email</label>
+                    <input type="email" class="form-control" id="email" name="email" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="hoTen" class="form-label">Họ và tên</label>
@@ -36,10 +36,59 @@
 
             </div>
             <div class="them" style="text-align: center;">
-                <button type="submit" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Thêm</button>
+                <button type="submit" onclick="addTeach()" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Thêm</button>
             </div>
         </form>
    
     
     
 </div>
+<script>
+    function addTeach() {
+        var email = $('#email').val();
+        var hoTen = $('#hoTen').val();
+        var sex = $('#gioiTinh').val();
+        var classes = $('#lop').val();
+        var image =$('#img').val();
+        var moTa = $('#description').val();
+        var trangThai = $('#tinhTrang').val();
+        var quantity = $('#soLuongKhoaHoc').val();
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
+        {
+            alert('Điền đầy đủ thông tin không được để rỗng');
+            return;
+        }
+        $.ajax({
+            url:'/editteachers/create/insert',
+                type: 'POST',
+                data:{
+                    email:email,
+                    hoTen:hoTen,
+                    gioiTinh:sex,
+                    lop:classes,
+                    img:image,
+                    description:moTa,
+                    tinhTrang : trangThai,
+                    soLuongKhoaHoc : quantity
+                }
+        })
+        .then((data)=>{
+            if(data.code === 200)
+            {
+                alert('Thêm thành công');
+                window.location.href = '/account'
+                
+            }
+            else{
+                alert('Thêm thất bại');
+            }
+            
+            
+        })
+        .catch(error =>{
+            alert('ERROR!!!')
+        })
+
+    }
+
+</script>

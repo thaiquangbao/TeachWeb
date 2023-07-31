@@ -31,30 +31,44 @@ class EditCourseController{
         
     }
     insert(req,res,next){
-        // const teacher = teachers.find({})
-        const formData = {
-            item : req.body.item,
-            price : req.body.price,
-            img : req.body.img,
-            trinhDo : req.body.trinhDo,
-            idVideo : req.body.idVideo,
-            soLuongVideo :req.body.soLuongVideo,
-            soGio : req.body.soGio,
-            title : req.body.title,
-            teacher:{
-                hoTen: req.body.hoTen,
-                soLuongKhoaHoc : req.body.soLuongKhoaHoc,
-                tinhTrang : req.body.tinhTrang
-            }
-
-        };
-        const course = new sales(formData);
+        teachers.findOne({hoTen: req.body.hoTen})
+        .then((teach) =>{
+            if (teach) {
+              const tinhTrang = teach.get('tinhTrang') 
+              const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
+              const img = teach.get('img')
+              const formData = {
+                item : req.body.item,
+                price : req.body.price,
+                img : req.body.img,
+                trinhDo : req.body.trinhDo,
+                idVideo : req.body.idVideo,
+                soLuongVideo :req.body.soLuongVideo,
+                soGio : req.body.soGio,
+                title : req.body.title,
+                teacher:{
+                    hoTen: req.body.hoTen,
+                    img : img,
+                    soLuongKhoaHoc: soLuongKhoaHoc,
+                    tinhTrang : tinhTrang,
+                    }
         
-        course.save()
-            .then(()=> res.redirect('/editcourse')) // truy cập đến trang chính
-            .catch(error =>{
-                res.json('Lỗi rồi')
-            });
+                };
+                const course = new sales(formData);  
+                return course.save();
+                
+            }
+            else{
+                res.json('Error!!!')
+            }
+            
+             
+        })
+        .then(()=> res.redirect('/editcourse')) // truy cập đến trang chính
+
+        .catch(error =>{
+            res.json('Lỗi rồi')
+        });
         
        };
     edit(req,res,next){
@@ -73,9 +87,45 @@ class EditCourseController{
         
     }
     update(req,res,next){
-        sales.updateOne({item: req.params.item},req.body)
-            .then(()=> res.redirect('/editcourse'))
-            .catch(next);
+        teachers.findOne({hoTen: req.body.hoTen})
+        .then((teach) =>{
+            if (teach) {
+              const tinhTrang = teach.get('tinhTrang') 
+              const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
+              const img = teach.get('img')
+              const formData = {
+                item : req.body.item,
+                price : req.body.price,
+                img : req.body.img,
+                trinhDo : req.body.trinhDo,
+                idVideo : req.body.idVideo,
+                soLuongVideo :req.body.soLuongVideo,
+                soGio : req.body.soGio,
+                title : req.body.title,
+                teacher:{
+                    hoTen: req.body.hoTen,
+                    img : img,
+                    soLuongKhoaHoc: soLuongKhoaHoc,
+                    tinhTrang : tinhTrang,
+                    }
+        
+                };
+                sales.updateOne({item: req.params.item},formData) 
+                .then(()=> res.redirect('/editcourse'))
+                .catch(error =>{
+                    res.json('ERROR!!!')
+                })
+                
+            }
+            else{
+                res.json('Error!!!')
+            }
+            
+             
+        })
+        .catch(error =>{
+            res.json('ERROR!!!')
+        })
         
     }
     delete(req,res,next){

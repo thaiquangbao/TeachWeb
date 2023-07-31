@@ -19,11 +19,13 @@ const sale = new Schema({
   soLuongVideo:String,
   soGio:String,
   title:String,
-  teacher: {
-    hoTen : String,
-    soLuongKhoaHoc : Number,
-    tinhTrang : String,
+  teacher : {
+    hoTen :String,
+    img : String,
+    soLuongKhoaHoc: Number,
+    tinhTrang : String
   },
+    
 },{
   timestamps:true,
 });
