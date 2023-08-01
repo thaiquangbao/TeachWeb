@@ -34,6 +34,7 @@ class TeacherController{
         const teacher = new teachers(formData)
         teacher.save()
             .then(()=> res.json({code:200,form : teacher}))
+            .then(() => res.redirect('/editteachers'))
             .catch(error=>{
                 res.json({code:500,message: 'ERROR!'})
             });
