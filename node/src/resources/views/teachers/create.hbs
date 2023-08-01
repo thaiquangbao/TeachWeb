@@ -1,5 +1,5 @@
 <div class="mt-4" >
-        <form class="formnhap" >
+        <div class="formnhap" >
             <div class="form-row">
                 <div class="col">
                     <label for="email" >Nhập email</label>
@@ -38,7 +38,7 @@
             <div class="them" style="text-align: center;">
                 <button type="submit" onclick="addTeach()" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Thêm</button>
             </div>
-        </form>
+        </div>
    
     
     
@@ -76,14 +76,15 @@
             if(data.code === 200)
             {
                 alert('Thêm thành công');
-                
-                
+                window.location.href = '/editteachers' 
+            }
+            else if (data.code === 501){
+                alert('Trùng email')
             }
             else{
-                alert('Thêm thất bại');
+                alert('ERROR')
             }
-            
-            
+
         })
         .catch(error =>{
             alert('ERROR!!!')

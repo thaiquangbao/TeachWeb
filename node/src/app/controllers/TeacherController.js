@@ -30,12 +30,19 @@ class TeacherController{
     };
 
     insert(req,res,next){
-        const formData = req.body;
-        const teacher = new teachers(formData)
-        teacher.save()
-            .then(()=> res.json({code:200,form : teacher}))
-            .then(() => res.redirect('/editteachers'))
-            .catch(error=>{
+        teachers.findOne({email : req.body.email})
+        .then((mail) =>{
+            if(!mail){
+                res.json({code:200})
+                const formData = req.body;
+                const teacher = new teachers(formData)
+                return teacher.save()
+            }
+            else{
+                 res.json({code:501,message: 'Trùng dữ liệu'})
+            }
+      })
+       .catch(error=>{
                 res.json({code:500,message: 'ERROR!'})
             });
     };
