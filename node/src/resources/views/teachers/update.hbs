@@ -1,8 +1,8 @@
 <div class="mt-4">
-    <div method="post" action="" class="formnhap" >
+    <div class="formnhap" >
         <div class="form-row">
                 <div class="col">
-                    <label for="id" >Nhập email</label>
+                    <label for="email" >Nhập email</label>
                     <input type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
                 </div>
                 <div class="col">
@@ -55,12 +55,13 @@
         var quantity = $('#soLuongKhoaHoc').val();
         if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
         {
-            alert('Điền đầy đủ thông tin không được để rỗng');
+            alert('Điền đầy đủ thông tin không được để rỗng ');
+
             return;
         }
         $.ajax({
-            url : '/editteachers/'+ email +'?_method=PUT',
-                type: 'POST',
+            url : '/editteachers/'+email,
+                type: 'PUT',
                 data:{
                     email:email,
                     hoTen:hoTen,

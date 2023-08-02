@@ -57,22 +57,37 @@ class TeacherController{
         
     }
     update(req,res,next){
-        let validEmail = teachers.findOne({ email: req.body.email })
-        let updateEmail = teachers.updateOne({email: req.params.email},
-            {email:req.body.email,hoTen:req.body.hoTen,gioiTinh:req.body.gioiTinh,lop:req.body.lop,img:req.body.img,description:req.body.description,tinhTrang:req.body.tinhTrang,soLuongKhoaHoc:req.body.soLuongKhoaHoc})
-        Promise.all([validEmail,updateEmail])
-        .then(([valid,update]) => {
-            if (!valid) {
-                res.json({code :200 , message :'success'})
+        teachers.findOne({email : req.body.email})
+        .then((mail) =>{
+            if(!mail){
+                const updateData = {
+                    email: req.body.email,
+                    hoTen: req.body.hoTen,
+                    gioiTinh: req.body.gioiTinh,
+                    lop: req.body.lop,
+                    img: req.body.img,
+                    description: req.body.description,
+                    tinhTrang: req.body.tinhTrang,
+                    soLuongKhoaHoc: req.body.soLuongKhoaHoc,
+                  };
+                
+                  teachers.updateOne({ email: req.params.email }, updateData)
+                    .then(() => {
+                      res.json({ code: 200, message: 'success' });
+                    })
+                    .catch(error => {
+                      res.json({ code: 500, message: 'fail' });
+                    });
             }
             else{
-                res.json({code : 501 , message: 'fail'})
-            }   
-            
+                res.json({ code: 501, message: 'success' });
+            }
         })
-        .catch(err => {
-            res.json({code : 500 , message: 'fail'})
-        })
+        .catch(error => {
+            res.json({ code: 500, message: 'fail' });
+          });
+       
+        
     };
         
     
