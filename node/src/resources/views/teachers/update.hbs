@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <div method="post" action="/editteachers/{{teachers.email}}?_method=PUT" class="formnhap" >
+    <div method="post" action="" class="formnhap" >
         <div class="form-row">
                 <div class="col">
                     <label for="id" >Nhập email</label>
@@ -36,9 +36,57 @@
 
             </div>
             <div class="sua" style="text-align: center;">
-                <button type="submit" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Sửa</button>
+                <button type="submit" onclick="update()" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Sửa</button>
             </div>
         
     </div>
 
 </div>
+
+<script>
+    function update(){
+        var email = $('#email').val();
+        var hoTen = $('#hoTen').val();
+        var sex = $('#gioiTinh').val();
+        var classes = $('#lop').val();
+        var image =$('#img').val();
+        var moTa = $('#description').val();
+        var trangThai = $('#tinhTrang').val();
+        var quantity = $('#soLuongKhoaHoc').val();
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
+        {
+            alert('Điền đầy đủ thông tin không được để rỗng');
+            return;
+        }
+        $.ajax({
+            url : '/editteachers/'+ email +'?_method=PUT',
+                type: 'POST',
+                data:{
+                    email:email,
+                    hoTen:hoTen,
+                    gioiTinh:sex,
+                    lop:classes,
+                    img:image,
+                    description:moTa,
+                    tinhTrang : trangThai,
+                    soLuongKhoaHoc : quantity
+                }
+        })
+        .then(data =>{
+            if(data.code === 200){
+                alert('Cập nhật GV: '+hoTen+' thành công!!!')
+                window.location.href = '/editteachers' 
+            }
+            else if(data.code === 501){
+                alert('Trùng email')
+            }
+            else{
+                alert('Lỗi hệ Thống')
+            }
+            
+        })
+        .catch(error =>{
+            alert('Thất bại')
+        })
+    }
+</script>

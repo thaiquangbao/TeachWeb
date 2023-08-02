@@ -57,10 +57,25 @@ class TeacherController{
         
     }
     update(req,res,next){
-        teachers.updateOne({email: req.params.email},req.body)
-            .then(()=> res.redirect('/editteachers'))
-            .catch(next);
-    }
+        let validEmail = teachers.findOne({ email: req.body.email })
+        let updateEmail = teachers.updateOne({email: req.params.email},
+            {email:req.body.email,hoTen:req.body.hoTen,gioiTinh:req.body.gioiTinh,lop:req.body.lop,img:req.body.img,description:req.body.description,tinhTrang:req.body.tinhTrang,soLuongKhoaHoc:req.body.soLuongKhoaHoc})
+        Promise.all([validEmail,updateEmail])
+        .then(([valid,update]) => {
+            if (!valid) {
+                res.json({code :200 , message :'success'})
+            }
+            else{
+                res.json({code : 501 , message: 'fail'})
+            }   
+            
+        })
+        .catch(err => {
+            res.json({code : 500 , message: 'fail'})
+        })
+    };
+        
+    
     trash(req,res,next){
         teachers.findWithDeleted({deleted:true})
         .then(teachers=>{
@@ -71,6 +86,7 @@ class TeacherController{
          .catch(next)
       
     }
+
     delete(req,res,next){
         teachers.delete({email: req.params.email})
             .then(() => res.redirect('back'))
@@ -104,5 +120,6 @@ class TeacherController{
         .catch(next);
     }
     
-}   
+}
+
 module.exports = new TeacherController();
