@@ -47,7 +47,7 @@ class TeacherController{
             });
     };
     edit(req,res,next){
-        teachers.findOne({hoTen: req.params.hoTen})
+        teachers.findOne({email: req.params.email})
             .then(teachers =>{
                 res.render('teachers/update',{
                     teachers : mongooseToObject(teachers)
@@ -57,7 +57,7 @@ class TeacherController{
         
     }
     update(req,res,next){
-        teachers.updateOne({hoTen: req.params.hoTen},req.body)
+        teachers.updateOne({email: req.params.email},req.body)
             .then(()=> res.redirect('/editteachers'))
             .catch(next);
     }
@@ -72,34 +72,34 @@ class TeacherController{
       
     }
     delete(req,res,next){
-        teachers.delete({hoTen: req.params.hoTen})
+        teachers.delete({email: req.params.email})
             .then(() => res.redirect('back'))
             .catch(next);
     }
     restore(req,res,next){
-        teachers.restore({hoTen:req.params.hoTen})
+        teachers.restore({email:req.params.email})
             .then(()=> res.redirect('back'))
             .catch(next);
     }
     destroy(req,res,next){
-        teachers.deleteOne({hoTen:req.params.hoTen})
+        teachers.deleteOne({email:req.params.email})
             .then(() => res.redirect('back'))
             .catch(next);
     }
     countDeleted(req,res,next){
-        teachers.delete({_id:{ $in : req.body.teacherId}})
+        teachers.delete({email:{ $in : req.body.teacherId}})
             .then(()=> res.redirect('back'))
             .catch(next);
 
     }
     restoreAll(req,res,next){
-        teachers.restore({_id:{$in :req.body.teacherId }})
+        teachers.restore({email:{$in :req.body.teacherId }})
             .then(()=>res.redirect('back'))
             .catch(next);
        
     }
     deleteBox(req,res,next){
-        teachers.deleteMany({_id:{$in :req.body.teacherId }})
+        teachers.deleteMany({email:{$in :req.body.teacherId }})
         .then(()=>res.redirect('back'))
         .catch(next);
     }

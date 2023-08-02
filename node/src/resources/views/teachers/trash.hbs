@@ -30,6 +30,7 @@
                     <th scope="col" >Họ và tên</th>
                     <th scope="col">Giới tính</th>
                     <th scope="col">Lớp đảm nhiệm</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Description</th>
                     <th scope="col">Image</th>
                     <th class="col" style=" width: 200px; " >Chỉnh sửa</th>
@@ -40,7 +41,7 @@
                     <tr>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="teacherId[]" value="{{this._id}}">
+                            <input class="form-check-input" type="checkbox" name="teacherId[]" value="{{this.email}}">
                         </div>
                     </td>
                     
@@ -48,12 +49,13 @@
                     <td>{{this.hoTen}}</td>
                     <td>{{this.gioiTinh}}</td>
                     <td>{{this.lop}}</td>
+                    <td>{{this.email}}</td>
                     <td>{{this.description}}</td>
                     <td><img src="{{this.img}}" alt=""  style="width: 80px; height: 80px; border-radius: 50%;"></td>
                     
                     <td>
-                        <a href="" class="btn btn-link btn-restore" data-ten="{{this.hoTen}}">Khôi phục</a>
-                        <a href="" data-toggle="modal" data-ten="{{this.hoTen}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                        <a href="" class="btn btn-link btn-restore" data-email="{{this.email}}">Khôi phục</a>
+                        <a href="" data-toggle="modal" data-email="{{this.email}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
                     </td>
                     </tr>
                     {{else}}
@@ -101,7 +103,7 @@
     document.addEventListener('DOMContentLoaded',() =>{
         $('#delete-modal').on('show.bs.modal',(e)=>{
             var button = $(e.relatedTarget);
-            tenGV = button.data('ten')
+            tenGV = button.data('email')
             
         });
         btnDelete.onclick = ()=>{
@@ -113,7 +115,7 @@
             resBtn.addEventListener('click',(e)=>{
                 e.preventDefault();
                 
-                var teachName = resBtn.getAttribute('data-ten');
+                var teachName = resBtn.getAttribute('data-email');
                 restoreForm.action = '/editteachers/'+ teachName +'/restore?_method=PATCH'
                 restoreForm.submit();
             })
