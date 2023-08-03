@@ -31,43 +31,58 @@ class EditCourseController{
         
     }
     insert(req,res,next){
-        teachers.findOne({hoTen: req.body.hoTen})
-        .then((teach) =>{
-            if (teach) {
-              const tinhTrang = teach.get('tinhTrang') 
-              const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
-              const img = teach.get('img')
-              const formData = {
-                item : req.body.item,
-                price : req.body.price,
-                img : req.body.img,
-                trinhDo : req.body.trinhDo,
-                idVideo : req.body.idVideo,
-                soLuongVideo :req.body.soLuongVideo,
-                soGio : req.body.soGio,
-                title : req.body.title,
-                teacher:{
-                    hoTen: req.body.hoTen,
-                    img : img,
-                    soLuongKhoaHoc: soLuongKhoaHoc,
-                    tinhTrang : tinhTrang,
-                    }
         
-                };
-                const course = new sales(formData);  
-                return course.save();
+        sales.findOne({item : req.body.item})
+        .then((courses) =>{
+            if(!courses){
                 
+                teachers.findOne({hoTen: req.body.hoTen})
+                .then((teach) =>{
+                    if (teach) {
+                    
+                      const tinhTrang = teach.get('tinhTrang') 
+                      const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
+                      const img = teach.get('img')
+                      const formData = {
+                        item : req.body.item,
+                        price : req.body.price,
+                        img : req.body.img,
+                        trinhDo : req.body.trinhDo,
+                        idVideo : req.body.idVideo,
+                        soLuongVideo :req.body.soLuongVideo,
+                        soGio : req.body.soGio,
+                        title : req.body.title,
+                        teacher:{
+                            hoTen: req.body.hoTen,
+                            img : img,
+                            soLuongKhoaHoc: soLuongKhoaHoc,
+                            tinhTrang : tinhTrang,
+                            }
+                
+                        };
+                        res.json({code:200 , data : courses})
+                        const course = new sales(formData);  
+                        return course.save();
+                        
+                    }
+                    else{
+                        res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
+                    }
+                    
+                    
+                })
+                .catch(error=> res.json({code:502 , message : 'ERROR!!!'}))
             }
             else{
-                res.json('Error!!!')
+                res.json({code:501 , message : 'Tên khóa học đã tồn tại'})
             }
             
-             
         })
-        .then(()=> res.redirect('/editcourse')) // truy cập đến trang chính
+       
+        
 
         .catch(error =>{
-            res.json('Lỗi rồi')
+            res.json({code:500 , message : 'ERROR!!!'})
         });
         
        };
