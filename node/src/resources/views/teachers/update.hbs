@@ -3,7 +3,7 @@
         <div class="form-row">
                 <div class="col">
                     <label for="email" >Nhập email</label>
-                    <input type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
+                    <input disabled type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="hoTen" class="form-label">Họ và tên</label>
@@ -60,10 +60,10 @@
             return;
         }
         $.ajax({
-            url : '/editteachers/'+email,
-                type: 'PUT',
+            url : '/editteachers/'+email+'?_method=PUT',
+                type: 'POST',
                 data:{
-                    email:email,
+                    
                     hoTen:hoTen,
                     gioiTinh:sex,
                     lop:classes,
