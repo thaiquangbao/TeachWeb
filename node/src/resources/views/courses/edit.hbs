@@ -48,7 +48,7 @@
                     <tr>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="courseItem[]" value="{{this.item}}">
+                            <input class="form-check-input" type="checkbox" name="courseItem[]" value="{{this._id}}">
 
                         </div>
                     </td>
@@ -61,8 +61,8 @@
                     <td>{{this.title}}</td>
                     <td>{{this.teacher.hoTen}}</td>
                     <td>
-                        <a href="/editcourse/{{this.item}}/edit" class="btn btn-link ">Sửa</a>
-                        <a href="" data-toggle="modal" data-item="{{this.item}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                        <a href="/editcourse/{{this._id}}/edit" class="btn btn-link ">Sửa</a>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
                     </td>
                     </tr>
                     {{else}}
@@ -134,7 +134,7 @@
     document.addEventListener('DOMContentLoaded',() =>{
         $('#delete-modal').on('show.bs.modal', (event) =>{
         var button = $(event.relatedTarget)
-        tenKH = button.data('item')
+        tenKH = button.data('id')
         
     });
         btnDeleteCourse.onclick = function(){
