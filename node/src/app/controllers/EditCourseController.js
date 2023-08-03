@@ -97,7 +97,9 @@ class EditCourseController{
                     sales : mongooseToObject(sales)
                 });
             })
-            .catch(next);
+            .catch(error=>{
+                res.json(error)
+            });
        
         
     }
@@ -125,15 +127,15 @@ class EditCourseController{
                     }
         
                 };
-                sales.updateOne({item: req.params.item},formData) 
-                .then(()=> res.redirect('/editcourse'))
+                sales.updateOne({_id: req.params._id},formData) 
+                .then(()=>res.json({code: 200 }))
                 .catch(error =>{
-                    res.json('ERROR!!!')
+                    res.json({code:500, message : 'Cập nhật không thành công'})
                 })
                 
             }
             else{
-                res.json('Error!!!')
+                res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
             }
             
              

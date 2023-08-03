@@ -1,10 +1,10 @@
 
 <div class="mt-4">
-    <form method="post" action="/editcourse/{{sales.item}}?_method=PUT" class="form-write" >
+    <div  class="form-write" >
         <div class="form-row" style=" margin-left: 200px;" >
                 <div class="col">
                     <label for="item" >Nhập tên khóa học</label>
-                    <input type="text" class="form-control" value="{{sales.item}}" id="item" name="item" style="width: 500px;">
+                    <input type="text" data-id ={{sales._id}}  class="form-control" value="{{sales.item}}" id="item" name="item" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="price" class="form-label">Nhập giá</label>
@@ -36,18 +36,84 @@
                 </div>
                 <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
-                    <select class="form-control" id="" name="hoTen"  style="width: 500px;">
+                    <select class="form-control" id="hoTen" name="hoTen"  style="width: 500px;">
                             <option>{{sales.teacher.hoTen}}</option>
                             {{#each teachers}}
-                                <option class="ho">{{this.hoTen}}</option>
+                                <option >{{this.hoTen}}</option>
                             {{/each}}
                     </select>
                 </div>
         </div>
             <div class="sua" style="text-align: center;">
-                <button type="submit" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Sửa</button>
+                <button type="submit" onclick="updateCourse()" class="btn btn-outline-success" style="width: 1400px; margin-top: 50px;">Sửa</button>
             </div>
         
-    </form>
+    </div>
 
 </div>
+<script>
+     function  updateCourse(){
+        var course = $('#item').val();
+        var price = $('#price').val();
+        var img = $('#img').val();
+        var time = $('#soGio').val();
+        var soLuongVideo = $('#soLuongVideo').val();
+        var level = $('#trinhDo').val();
+        var video = $('#idVideo').val();
+        var title = $('#title').val();
+        var hoTen = $('#hoTen').val();
+        var _id = $('#item').data().id;
+        if(course.trim() === '' || price.trim() === '' ||img.trim() === '' ||time.trim() === '' ||soLuongVideo.trim() === '' ||level.trim() === '' ||video.trim() === '' ||title.trim() === '' ||hoTen === '-- Chọn giáo viên --' ){
+            alert('Điền đầy đủ thông tin')
+            return;
+        }
+        else if (course !== course.toUpperCase())
+       {
+            alert('Phải viết hoa toàn bộ')
+            return;
+       }
+        $.ajax({
+            url: '/editcourse/'+_id+'?_method=PUT',
+                type : 'POST',
+                data : {
+                    item : course,
+                    price : price,
+                    img : img,
+                    soGio:time,
+                    soLuongVideo:soLuongVideo,
+                    trinhDo:level,
+                    idVideo:video,
+                    title:title,
+                    hoTen:hoTen
+                }
+        })
+        .then(data =>{
+            if(data.code === 200)
+            {
+                alert('Thêm khóa học thành công')
+                window.location.href = '/editcourse' 
+            }
+            else if (data.code === 503 ){
+                alert('Giáo viên hiện đã nghỉ việc')
+            }
+            else if( data.code === 501){
+                alert('Khóa học đã tồn tại')
+            }
+            else if(data.code === 502){
+                alert('Mã lỗi 502')
+            }
+            else if(data.code === 500)
+            {
+                alert(data.error)
+            }
+            else{
+                alert('Thất bại!!!')
+            }
+            
+        })
+        .catch(error =>{
+            alert('ERROR!!!')
+        })
+    }  
+
+</script>
