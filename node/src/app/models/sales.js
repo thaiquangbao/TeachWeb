@@ -20,6 +20,7 @@ const sale = new Schema({
   soGio:String,
   title:String,
   teacher : {
+    _id : {type:mongoose.Schema.Types.ObjectId} ,
     hoTen :String,
     img : String,
     soLuongKhoaHoc: Number,

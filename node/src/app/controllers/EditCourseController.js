@@ -39,10 +39,8 @@ class EditCourseController{
                 teachers.findOne({hoTen: req.body.hoTen})
                 .then((teach) =>{
                     if (teach) {
-                    
-                      const tinhTrang = teach.get('tinhTrang') 
-                      const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
-                      const img = teach.get('img')
+                    const _id = teach.get('_id')
+                     
                       const formData = {
                         item : req.body.item,
                         price : req.body.price,
@@ -53,16 +51,18 @@ class EditCourseController{
                         soGio : req.body.soGio,
                         title : req.body.title,
                         teacher:{
+                            _id: _id,
                             hoTen: req.body.hoTen,
-                            img : img,
-                            soLuongKhoaHoc: soLuongKhoaHoc,
-                            tinhTrang : tinhTrang,
+                            img : teach.img,
+                            soLuongKhoaHoc: teach.soLuongKhoaHoc,
+                            tinhTrang : teach.tinhTrang,
                             }
                 
                         };
                         res.json({code:200 , data : courses})
                         const course = new sales(formData);  
                         return course.save();
+                        
                         
                     }
                     else{
@@ -104,15 +104,15 @@ class EditCourseController{
         
     }
     update(req,res,next){
-        sales.findOne({item : req.body.item})
-        .then((courses) =>{
-            if(!courses){
             teachers.findOne({hoTen: req.body.hoTen})
             .then((teach) =>{
                 if (teach) {
+                    
                 const tinhTrang = teach.get('tinhTrang') 
                 const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
                 const img = teach.get('img')
+                const _id = teach.get('_id')
+                
                 const formData = {
                     item : req.body.item,
                     price : req.body.price,
@@ -123,6 +123,7 @@ class EditCourseController{
                     soGio : req.body.soGio,
                     title : req.body.title,
                     teacher:{
+                        _id: _id,
                         hoTen: req.body.hoTen,
                         img : img,
                         soLuongKhoaHoc: soLuongKhoaHoc,
@@ -143,15 +144,8 @@ class EditCourseController{
                 
                 
             })
-            .catch(error =>{
-                res.json({code: 505 ,message: 'Giáo viên không tồn tại'})
-            })
-        }
-        else{
-            res.json({code:501 , message : 'Tên khóa học đã tồn tại'})
-        }
-        
-        })
+            
+       
         .catch(error =>{
             res.json({code:504,message: 'ERROR!!!' })
         })

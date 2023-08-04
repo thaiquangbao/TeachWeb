@@ -3,7 +3,7 @@
         <div class="form-row">
                 <div class="col">
                     <label for="email" >Nhập email</label>
-                    <input disabled type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
+                    <input disabled data-id="{{teachers._id}}" type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="hoTen" class="form-label">Họ và tên</label>
@@ -53,6 +53,7 @@
         var moTa = $('#description').val();
         var trangThai = $('#tinhTrang').val();
         var quantity = $('#soLuongKhoaHoc').val();
+        var _id = $('#email').data().id
         if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
         {
             alert('Điền đầy đủ thông tin không được để rỗng ');
@@ -60,7 +61,7 @@
             return;
         }
         $.ajax({
-            url : '/editteachers/'+email+'?_method=PUT',
+            url : '/editteachers/'+_id+'?_method=PUT',
                 type: 'POST',
                 data:{
                     
@@ -80,6 +81,12 @@
             }
             else if(data.code === 501){
                 alert('Trùng email')
+            }
+            else if(data.code === 503){
+                alert('Không tìm thấy Tên')
+            }
+            else if(data.code === 502){
+                alert('Update khóa học không thành công')
             }
             else{
                 alert('Lỗi hệ Thống')

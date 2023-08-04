@@ -1,4 +1,5 @@
 const teachers = require('../models/teachers');
+const courses = require('../models/sales');
 const {multipleMongooseToObject} = require('../../until/mongoose');
 const {mongooseToObject} = require('../../until/mongoose');
 
@@ -47,7 +48,7 @@ class TeacherController{
             });
     };
     edit(req,res,next){
-        teachers.findOne({email: req.params.email})
+        teachers.findOne({_id: req.params._id})
             .then(teachers =>{
                 res.render('teachers/update',{
                     teachers : mongooseToObject(teachers)
@@ -66,9 +67,11 @@ class TeacherController{
             tinhTrang: req.body.tinhTrang,
             soLuongKhoaHoc: req.body.soLuongKhoaHoc,
                 };
-            teachers.updateOne({ email: req.params.email }, updateData)
+            teachers.updateOne({ _id: req.params._id }, updateData)
             .then(() => {
-                res.json({ code: 200, message: 'success' });
+                courses.updateMany({"teacher._id": req.params._id },{"teacher.img": req.body.img,"teacher.hoTen": req.body.hoTen,"teacher.tinhTrang": req.body.tinhTrang,"teacher.soLuongKhoaHoc": req.body.soLuongKhoaHoc})
+                .then(()=> res.json({ code: 200, message: 'success' }))
+                .catch(error => res.json({code : 502 , message : 'fail'})) 
             })
             .catch(error => {
             res.json({ code: 500, message: 'fail' });
