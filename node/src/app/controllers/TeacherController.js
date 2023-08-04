@@ -93,34 +93,34 @@ class TeacherController{
     }
 
     delete(req,res,next){
-        teachers.delete({email: req.params.email})
+        teachers.delete({_id: req.params._id})
             .then(() => res.redirect('back'))
             .catch(next);
     }
     restore(req,res,next){
-        teachers.restore({email:req.params.email})
+        teachers.restore({_id:req.params._id})
             .then(()=> res.redirect('back'))
             .catch(next);
     }
     destroy(req,res,next){
-        teachers.deleteOne({email:req.params.email})
+        teachers.deleteOne({_id:req.params._id})
             .then(() => res.redirect('back'))
             .catch(next);
     }
     countDeleted(req,res,next){
-        teachers.delete({email:{ $in : req.body.teacherId}})
+        teachers.delete({_id:{ $in : req.body.teacherId}})
             .then(()=> res.redirect('back'))
             .catch(next);
 
     }
     restoreAll(req,res,next){
-        teachers.restore({email:{$in :req.body.teacherId }})
+        teachers.restore({_id:{$in :req.body.teacherId }})
             .then(()=>res.redirect('back'))
             .catch(next);
        
     }
     deleteBox(req,res,next){
-        teachers.deleteMany({email:{$in :req.body.teacherId }})
+        teachers.deleteMany({_id:{$in :req.body.teacherId }})
         .then(()=>res.redirect('back'))
         .catch(next);
     }

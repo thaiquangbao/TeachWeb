@@ -41,7 +41,7 @@
                     <tr>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="teacherId[]" value="{{this.email}}">
+                            <input class="form-check-input" type="checkbox" name="teacherId[]" value="{{this._id}}">
                         </div>
                     </td>
                     
@@ -54,8 +54,8 @@
                     <td><img src="{{this.img}}" alt=""  style="width: 80px; height: 80px; border-radius: 50%;"></td>
                     
                     <td>
-                        <a href="" class="btn btn-link btn-restore" data-email="{{this.email}}">Khôi phục</a>
-                        <a href="" data-toggle="modal" data-email="{{this.email}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
+                        <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                        <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-modal" class="btn btn-link ">Xóa</a>
                     </td>
                     </tr>
                     {{else}}
@@ -103,7 +103,7 @@
     document.addEventListener('DOMContentLoaded',() =>{
         $('#delete-modal').on('show.bs.modal',(e)=>{
             var button = $(e.relatedTarget);
-            tenGV = button.data('email')
+            tenGV = button.data('id')
             
         });
         btnDelete.onclick = ()=>{
@@ -115,7 +115,7 @@
             resBtn.addEventListener('click',(e)=>{
                 e.preventDefault();
                 
-                var teachName = resBtn.getAttribute('data-email');
+                var teachName = resBtn.getAttribute('data-id');
                 restoreForm.action = '/editteachers/'+ teachName +'/restore?_method=PATCH'
                 restoreForm.submit();
             })
