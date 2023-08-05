@@ -27,8 +27,7 @@
 </div>
 <script>
     function getCourse(slug,_id){
-        //var _id = $('#imgCourse').data().id
-        //const idC = $('#imgCourse').data().id;
+        
         $.ajax({
             url:'/users/'+slug+'/'+_id,
                 type:'GET',

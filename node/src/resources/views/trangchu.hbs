@@ -61,9 +61,9 @@
         <div class="course-free"  >
 
             {{#each sales}}
-                <a href="/users/{{this.slug}}/{{this._id}}" class="click">
+                <a  id="coursess" onclick="seeCourse('{{this.slug}}','{{this._id}}','{{this.img}}')"  class="click">
                     <div class="img-center">
-                        <img src="{{this.img}}" alt="" style="border: 2px solid rgb(122, 166, 231);">
+                        <img src="{{this.img}}" class="courseIMG" alt="" style="border: 2px solid rgb(122, 166, 231);">
                             
                         <h5 style="text-align: center;">{{this.title}}</h5>
                     </div>   
@@ -82,3 +82,35 @@
         
     </div>
 </div>
+<script>
+    function seeCourse(slug,_id,img){
+        
+        $.ajax({
+            url:'/users/'+slug+'/'+_id,
+                type:'GET',
+               
+        })
+        .then((data)=>{
+            if(data.code === 500){
+                alert('Coming Soon !!!')
+                
+
+                 
+            }
+            else if(data.code === 501){
+                alert('Khóa học không tồn tại')
+            }
+            else{
+                window.location.href= '/users/'+slug+'/'+_id 
+            }
+            
+        })
+        .catch(error =>{
+            alert('Lỗi')
+        })
+        
+
+       
+    }
+
+</script>

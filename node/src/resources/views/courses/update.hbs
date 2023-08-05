@@ -37,6 +37,7 @@
                 <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
                     <select class="form-control" id="hoTen" name="hoTen"  style="width: 500px;">
+                        
                             <option>{{sales.teacher.hoTen}}</option>
                             {{#each teachers}}
                                 <option >{{this.hoTen}}</option>
@@ -51,6 +52,7 @@
     </div>
 
 </div>
+
 <script>
      function  updateCourse(){
         var course = $('#item').val();
@@ -63,7 +65,7 @@
         var title = $('#title').val();
         var hoTen = $('#hoTen').val();
         var _id = $('#item').data().id;
-        if(course.trim() === '' || price.trim() === '' ||img.trim() === '' ||time.trim() === '' ||soLuongVideo.trim() === '' ||level.trim() === '' ||video.trim() === '' ||title.trim() === '' ||hoTen === '-- Chọn giáo viên --' ){
+        if(course.trim() === '' || price.trim() === '' ||img.trim() === '' ||time.trim() === '' ||soLuongVideo.trim() === '' ||level.trim() === '' ||video.trim() === '' ||title.trim() === '' ||hoTen === '-- Chọn giáo viên --'||hoTen.trim() === '' ){
             alert('Điền đầy đủ thông tin')
             return;
         }

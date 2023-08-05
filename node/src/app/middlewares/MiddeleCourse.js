@@ -4,12 +4,13 @@ class CheckCourse{
     verifyCourse(req,res,next){
         courses.findOne({_id:req.params._id})
         .then((course)=>{
-            const teach = course.teacher
-            const converJson = JSON.stringify(teach)
-            
-            if(!teach._id)
+            console.log(course.teacher)
+            const teach =  String(course.teacher)
+            //const converJson = JSON.stringify(teach)
+           
+            if(teach === "Chưa có giáo viên đảm nhiệm")
             {
-                res.json({code:500, message : "Chưa có giáo viên đảm nhiệm"})
+                res.json({code:500, data : course})
             }
             else{
                 next()
