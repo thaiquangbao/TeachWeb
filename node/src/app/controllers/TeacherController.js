@@ -59,6 +59,7 @@ class TeacherController{
     }
     update(req,res,next){
         const updateData = {
+            email:req.body.email,
             hoTen: req.body.hoTen,
             gioiTinh: req.body.gioiTinh,
             lop: req.body.lop,
