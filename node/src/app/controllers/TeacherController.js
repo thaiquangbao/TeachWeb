@@ -94,8 +94,19 @@ class TeacherController{
 
     delete(req,res,next){
         teachers.delete({_id: req.params._id})
-            .then(() => res.redirect('back'))
-            .catch(next);
+            .then(() => {
+                courses.updateMany({"teacher._id": req.params._id},{"teacher": "Chưa có giáo viên đảm nhiệm" ,})
+                .then(()=>{
+                    res.redirect('back')
+                })
+                .catch(error =>{
+                    res.json('ERROR')
+                })
+            })
+            
+            .catch(error =>{
+                res.json(error)
+            });
     }
     restore(req,res,next){
         teachers.restore({_id:req.params._id})
@@ -109,7 +120,15 @@ class TeacherController{
     }
     countDeleted(req,res,next){
         teachers.delete({_id:{ $in : req.body.teacherId}})
-            .then(()=> res.redirect('back'))
+        .then(() => {
+            courses.updateMany({"teacher._id": { $in : req.body.teacherId}},{"teacher": "Chưa có giáo viên đảm nhiệm" ,})
+            .then(()=>{
+                res.redirect('back')
+            })
+            .catch(error =>{
+                res.json('ERROR')
+            })
+        })
             .catch(next);
 
     }

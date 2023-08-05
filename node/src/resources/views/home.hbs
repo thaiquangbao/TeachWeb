@@ -6,13 +6,13 @@
     </form>
     <div class="row">
         {{#each sales}}
-        <div class="col-sm-6 col-lg-4">
+        <div class="col-sm-6 col-lg-4" >
             <div class="card card-course-item" >
-                <a href="/users/{{this.slug}}" class="click" style="margin-top: 10px;">
-                    <img class="card-img-top" style="height: 200px; border-radius: 30px; border: 2px solid rgb(122, 166, 231) ;" src="{{this.img}}" alt="Card image cap">
+                <a class="submit" style="margin-top: 10px;" onclick="getCourse('{{this.slug}}','{{this._id}}')">
+                    <img  id="imgCourse" data-slug="{{this.slug}}" data-id="{{this._id}}" class="card-img-top" style="height: 200px; border-radius: 30px; border: 2px solid rgb(122, 166, 231) ;" src="{{this.img}}" alt="Card image cap">
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{this.item}}</h5>
+                    <h5 class="card-title" >{{this.item}}</h5>
                     <p class="card-text">Phí : {{this.price}}</p>
                     <a href="#" class="btn btn-primary">Mua</a>
                 </div>
@@ -25,5 +25,31 @@
             <a href="/editcourse" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Chỉnh sửa khóa học</a>
     </div> 
 </div>
-
+<script>
+    function getCourse(slug,_id){
+        //var _id = $('#imgCourse').data().id
+        //const idC = $('#imgCourse').data().id;
+        $.ajax({
+            url:'/users/'+slug+'/'+_id,
+                type:'GET',
+               
+        })
+        .then((data)=>{
+            if(data.code === 500){
+                alert('Hiện tại khóa học đang bảo trì !!!')
+            }
+            else if(data.code === 501){
+                alert('Khóa học không tồn tại')
+            }
+            else{
+                window.location.href= '/users/'+slug+'/'+_id 
+            }
+            
+        })
+        .catch(error =>{
+            alert('Lỗi')
+        })
+        
+    }
+</script>
 

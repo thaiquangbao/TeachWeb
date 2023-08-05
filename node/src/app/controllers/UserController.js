@@ -6,10 +6,10 @@ class UserController {
     //[Get] /users
     //res.render('home');
     sales.find({})
-      .then(sales => //res.json()
+      .then(sale => //res.json()
         {
         res.render('home',{
-          sales :  multipleMongooseToObject(sales)
+          sales :  multipleMongooseToObject(sale)
         });
       })
       .catch(next);
@@ -17,14 +17,16 @@ class UserController {
 
   show(req, res,next) {
     //[Get] /users/:slug
-    sales.findOne({slug : req.params.slug}) // tự update slug mới
+    sales.findOne({_id: req.params._id}) // tự update slug mới
       .then(sales => {
         //res.send('Ok')
         res.render('courses/show',{
           sales: mongooseToObject(sales)
         })
       })
-      .catch(next);
+      .catch(error=>{
+        res.json('ERROR')
+      });
   }
 
 }
