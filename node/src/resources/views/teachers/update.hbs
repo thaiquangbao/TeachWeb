@@ -31,7 +31,7 @@
                 </div>
                 <div class="col">
                     <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
-                    <input type="text" class="form-control" id="soLuongKhoaHoc" value="{{teachers.soLuongKhoaHoc}}" name="soLuongKhoaHoc" style="width: 500px;">
+                    <input type="text" disabled class="form-control" id="soLuongKhoaHoc" value="{{teachers.soLuongKhoaHoc}}" name="soLuongKhoaHoc" style="width: 500px;">
                 </div>
 
             </div>
@@ -54,12 +54,17 @@
         var trangThai = $('#tinhTrang').val();
         var quantity = $('#soLuongKhoaHoc').val();
         var _id = $('#email').data().id
-        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
         {
             alert('Điền đầy đủ thông tin không được để rỗng ');
 
             return;
         }
+         else if (classes !== classes.toUpperCase())
+       {
+            alert('Phải viết hoa toàn bộ')
+            return;
+       };
         var originalEmail = $('#email').data().original;
         if(email !== originalEmail)
         {

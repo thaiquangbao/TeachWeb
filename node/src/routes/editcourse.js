@@ -13,6 +13,7 @@ editCourseRouter.patch('/restoreBox',editCourseController.restoreBox)
 editCourseRouter.get('/trash',editCourseController.trash)
 editCourseRouter.post('/deleteAll',editCourseController.countDeleted)
 editCourseRouter.get('/insertCourse',editCourseController.create)
+editCourseRouter.post('/check-course',editCourseController.checkCourse)
 editCourseRouter.get('/',editCourseController.show)
 
 module.exports = editCourseRouter;

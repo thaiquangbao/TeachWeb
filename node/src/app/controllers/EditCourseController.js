@@ -39,8 +39,8 @@ class EditCourseController{
                 teachers.findOne({hoTen: req.body.hoTen})
                 .then((teach) =>{
                     if (teach) {
-                    const _id = teach.get('_id')
-                     
+                    const _id = teach.get('_id');
+                    const soLuongKhoaHoc = teach.soLuongKhoaHoc+1;
                       const formData = {
                         item : req.body.item,
                         price : req.body.price,
@@ -54,14 +54,26 @@ class EditCourseController{
                             _id: _id,
                             hoTen: req.body.hoTen,
                             img : teach.img,
-                            soLuongKhoaHoc: teach.soLuongKhoaHoc,
+                            soLuongKhoaHoc: soLuongKhoaHoc,
                             tinhTrang : teach.tinhTrang,
                             }
                 
                         };
-                        res.json({code:200 , data : courses})
+                        
                         const course = new sales(formData);  
-                        return course.save();
+                        course.save()
+                        .then(() =>{
+                            teachers.updateOne({_id: teach._id},{soLuongKhoaHoc: soLuongKhoaHoc})
+                            .then(()=>{
+                                res.json({code:200 , message : 'Thêm thành công'})
+                            })
+                            .catch(error =>{
+                                res.json(error)
+                            })
+                        })
+                        .catch((error) =>{
+                            res.json({code:504 , message :'Thêm không thành công'})
+                        })
                         
                         
                     }
@@ -104,7 +116,7 @@ class EditCourseController{
         
     }
     update(req,res,next){
-            teachers.findOne({hoTen: req.body.hoTen})
+        teachers.findOne({hoTen: req.body.hoTen})
             .then((teach) =>{
                 if (teach) {
                     
@@ -194,6 +206,94 @@ class EditCourseController{
             .then(()=> res.redirect('back'))
             .catch(next);
     }
+    checkCourse(req,res){
+        sales.findOne({item : req.body.item})
+        .then((course) =>{
+        if(course){
+             res.json({exist:false})
+        }
+        else{
+             res.json({exist:true})
+        }
+        })
+        .catch(error =>{
+        res.json(error)
+        })
+   }
+   upQuantity(req,res){
+    teachers.findOne({hoTen: req.body.hoTen})
+    .then((teach) =>{
+        if (teach) {
+        const soLuongKhoaHoc = teach.get('soLuongKhoaHoc') + 1;
+            const formData = {
+                teacher:{ 
+                    soLuongKhoaHoc: soLuongKhoaHoc,
+                }
+            };
+            sales.updateOne({_id: req.params._id},formData) 
+            .then(()=>res.json({code: 200 }))
+            .catch(error =>{
+                res.json({code:502, message : 'Cập nhật không thành công'})
+            })
+            
+            }
+            else{
+                    res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
+            }
+                
+                
+        })
+            
+
+        .catch(error =>{
+            res.json({code:504,message: 'ERROR!!!' })
+        }) 
+    }
+    downQuantity(req,res){
+        teachers.findOne({hoTen: req.body.hoTen})
+        .then((teach) =>{
+            if (teach) {
+            const tinhTrang = teach.get('tinhTrang') ;
+            const soLuongKhoaHoc = teach.get('soLuongKhoaHoc') - 1;
+            const img = teach.get('img');
+            const _id = teach.get('_id');
+            
+                const formData = {
+                    item : req.body.item,
+                    price : req.body.price,
+                    img : req.body.img,
+                    trinhDo : req.body.trinhDo,
+                    idVideo : req.body.idVideo,
+                    soLuongVideo :req.body.soLuongVideo,
+                    soGio : req.body.soGio,
+                    title : req.body.title,
+                    teacher:{
+                        _id: _id,
+                        hoTen: req.body.hoTen,
+                        img : img,
+                        soLuongKhoaHoc: soLuongKhoaHoc,
+                        tinhTrang : tinhTrang,
+                        }
+                };
+                sales.updateOne({_id: req.params._id},formData) 
+                .then(()=>res.json({code: 200 }))
+                .catch(error =>{
+                    res.json({code:502, message : 'Cập nhật không thành công'})
+                })
+                
+                }
+                else{
+                        res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
+                }
+                    
+                    
+            })
+                
+    
+            .catch(error =>{
+                res.json({code:504,message: 'ERROR!!!' })
+            }) 
+        }
     
 }
 module.exports = new EditCourseController();

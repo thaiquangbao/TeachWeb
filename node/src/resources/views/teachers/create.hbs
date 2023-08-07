@@ -31,7 +31,7 @@
                 </div>
                 <div class="col">
                     <label for="soLuongKhoaHoc" class="form-label">Số lượng khóa học</label>
-                    <input type="text" class="form-control" id="soLuongKhoaHoc" name="soLuongKhoaHoc" style="width: 500px;">
+                    <input disabled type="text" value="0" class="form-control" id="soLuongKhoaHoc" name="soLuongKhoaHoc" style="width: 500px;">
                 </div>
 
             </div>
@@ -53,11 +53,16 @@
         var moTa = $('#description').val();
         var trangThai = $('#tinhTrang').val();
         var quantity = $('#soLuongKhoaHoc').val();
-        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === ''||quantity.trim() === '')
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
         {
             alert('Điền đầy đủ thông tin không được để rỗng');
             return;
         }
+        else if (classes !== classes.toUpperCase())
+       {
+            alert('Phải viết hoa toàn bộ')
+            return;
+       };
         $.ajax({
             url:'/editteachers/create/insert',
                 type: 'POST',

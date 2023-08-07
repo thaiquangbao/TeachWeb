@@ -4,7 +4,7 @@
         <div class="form-row" style=" margin-left: 200px;" >
                 <div class="col">
                     <label for="item" >Nhập tên khóa học</label>
-                    <input type="text" data-id ={{sales._id}}  class="form-control" value="{{sales.item}}" id="item" name="item" style="width: 500px;">
+                    <input type="text" data-origin="{{sales.item}}" data-id ="{{sales._id}}"  class="form-control" value="{{sales.item}}" id="item" name="item" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="price" class="form-label">Nhập giá</label>
@@ -73,49 +73,77 @@
        {
             alert('Phải viết hoa toàn bộ')
             return;
-       }
-        $.ajax({
-            url: '/editcourse/'+_id+'?_method=PUT',
-                type : 'POST',
-                data : {
-                    item : course,
-                    price : price,
-                    img : img,
-                    soGio:time,
-                    soLuongVideo:soLuongVideo,
-                    trinhDo:level,
-                    idVideo:video,
-                    title:title,
-                    hoTen:hoTen
+       };
+       var checkCourses = $('#item').data().origin;
+       if(course !== checkCourses){
+            $.ajax({
+                url: '/editcourse/check-course',
+                    type : 'POST',
+                    data : {
+                        item : course,
+                       
+                    }
+            })
+            .then((courses)=>{
+                if(courses.exist === false){
+                    alert('Khóa học đã tồn tại')
                 }
-        })
-        .then(data =>{
-            if(data.code === 200)
-            {
-                alert('Sửa khóa học thành công')
-                window.location.href = '/editcourse' 
-            }
-            else if (data.code === 503 ){
-                alert('Giáo viên hiện đã nghỉ việc')
-            }
-            else if( data.code === 501){
-                alert('Khóa học đã tồn tại')
-            }
-            else if(data.code === 502){
-                alert('Mã lỗi 502')
-            }
-            else if(data.code === 500)
-            {
-                alert(data.error)
-            }
-            else{
-                alert('Thất bại!!!')
-            }
+                else{
+                   return Course();
+                }
+            })
+            .catch(error=>{
+                alert(error)
+            })
             
-        })
-        .catch(error =>{
-            alert('ERROR!!!')
-        })
-    }  
+       }
+       else{
+           return Course();
+       }
+       function Course(){
+            $.ajax({
+                url: '/editcourse/'+_id+'?_method=PUT',
+                    type : 'POST',
+                    data : {
+                        item : course,
+                        price : price,
+                        img : img,
+                        soGio:time,
+                        soLuongVideo:soLuongVideo,
+                        trinhDo:level,
+                        idVideo:video,
+                        title:title,
+                        hoTen:hoTen
+                    }
+            })
+            .then(data =>{
+                if(data.code === 200)
+                {
+                    alert('Sửa khóa học thành công')
+                    window.location.href = '/editcourse' 
+                }
+                else if (data.code === 503 ){
+                    alert('Giáo viên hiện đã nghỉ việc')
+                }
+                
+                else if(data.code === 502){
+                    alert('Mã lỗi 502')
+                }
+                else if(data.code === 500)
+                {
+                    alert(data.error)
+                }
+                else{
+                    alert('Thất bại!!!')
+                }
+                
+            })
+            .catch(error =>{
+                alert('ERROR!!!')
+            })
+            
+        }  
+    }
+      
 
 </script>

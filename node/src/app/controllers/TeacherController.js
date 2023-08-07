@@ -80,6 +80,7 @@ class TeacherController{
        
         
     };
+    
         
     
     trash(req,res,next){
@@ -158,6 +159,7 @@ class TeacherController{
             res.json(err)
         })
     }
+  
     
 }
 
