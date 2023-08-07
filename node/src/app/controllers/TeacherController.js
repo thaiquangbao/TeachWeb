@@ -144,6 +144,20 @@ class TeacherController{
         .then(()=>res.redirect('back'))
         .catch(next);
     }
+    checkEmail(req,res){
+        teachers.findOne({email: req.body.email})
+        .then(user =>{
+            if(user){
+                res.json({exist :false })
+            }
+            else{
+                res.json({exist :true})
+            }
+        })
+        .catch(err => {
+            res.json(err)
+        })
+    }
     
 }
 

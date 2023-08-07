@@ -3,7 +3,7 @@
         <div class="form-row">
                 <div class="col">
                     <label for="email" >Nhập email</label>
-                    <input data-id="{{teachers._id}}" type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
+                    <input data-original="{{teachers.email}}" data-id="{{teachers._id}}" type="email" class="form-control" value="{{teachers.email}}" id="email" name="email" style="width: 500px;">
                 </div>
                 <div class="col">
                     <label for="hoTen" class="form-label">Họ và tên</label>
@@ -60,7 +60,37 @@
 
             return;
         }
-        $.ajax({
+        var originalEmail = $('#email').data().original;
+        if(email !== originalEmail)
+        {
+            $.ajax({
+            url : '/teachers/check-email',
+                type: 'POST',
+                data:{
+                    email: email,
+                }
+        })
+        .then(emailData =>{
+            if(emailData.exist === false)
+            {
+                alert('Email đã tồn tại')
+            }
+            else{
+                updateTeach(email, hoTen, sex, classes, image, moTa, trangThai, quantity)
+            }
+        })
+        .catch(error =>{
+            alert('Lỗi hệ thống')
+        })
+
+        }
+        else{
+            updateTeach(email, hoTen, sex, classes, image, moTa, trangThai, quantity)
+        }
+
+    function updateTeach()
+    {
+         $.ajax({
             url : '/editteachers/'+_id+'?_method=PUT',
                 type: 'POST',
                 data:{
@@ -96,5 +126,6 @@
         .catch(error =>{
             alert('Thất bại')
         })
+    }   
     }
 </script>
