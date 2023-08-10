@@ -13,10 +13,7 @@
                     <label for="gioiTinh" class="form-label">Giới tính</label>
                     <input type="text" class="form-control" value="{{teachers.gioiTinh}}" id="gioiTinh"name="gioiTinh" style="width: 500px;">
                 </div>
-                <div class="col">
-                    <label for="lop" class="form-label">Lớp</label>
-                    <input type="text" class="form-control" value="{{teachers.lop}}" id="lop"name="lop" style="width: 500px;">
-                </div>
+                
                 <div class="col">
                     <label for="img" class="form-label">Image</label>
                     <input type="text" class="form-control" value="{{teachers.img}}" id="img"name="img" style="width: 500px;">
@@ -48,13 +45,13 @@
         var email = $('#email').val();
         var hoTen = $('#hoTen').val();
         var sex = $('#gioiTinh').val();
-        var classes = $('#lop').val();
+       
         var image =$('#img').val();
         var moTa = $('#description').val();
         var trangThai = $('#tinhTrang').val();
         var quantity = $('#soLuongKhoaHoc').val();
         var _id = $('#email').data().id
-        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
         {
             alert('Điền đầy đủ thông tin không được để rỗng ');
 
@@ -81,7 +78,7 @@
                 alert('Email đã tồn tại')
             }
             else{
-                updateTeach(email, hoTen, sex, classes, image, moTa, trangThai, quantity)
+                updateTeach(email, hoTen, sex, image, moTa, trangThai, quantity)
             }
         })
         .catch(error =>{
@@ -90,7 +87,7 @@
 
         }
         else{
-            updateTeach(email, hoTen, sex, classes, image, moTa, trangThai, quantity)
+            updateTeach(email, hoTen, sex,  image, moTa, trangThai, quantity)
         }
 
     function updateTeach()
@@ -102,7 +99,7 @@
                     email: email,
                     hoTen:hoTen,
                     gioiTinh:sex,
-                    lop:classes,
+                   
                     img:image,
                     description:moTa,
                     tinhTrang : trangThai,

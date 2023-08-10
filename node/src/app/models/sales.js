@@ -24,7 +24,8 @@ const sale = new Schema({
     hoTen :String,
     img : String,
     soLuongKhoaHoc: Number,
-    tinhTrang : String
+    tinhTrang : String,
+    email:String,
   },
     
 },{

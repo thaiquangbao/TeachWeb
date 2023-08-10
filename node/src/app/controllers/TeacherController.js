@@ -62,7 +62,7 @@ class TeacherController{
             email:req.body.email,
             hoTen: req.body.hoTen,
             gioiTinh: req.body.gioiTinh,
-            lop: req.body.lop,
+            
             img: req.body.img,
             description: req.body.description,
             tinhTrang: req.body.tinhTrang,
@@ -70,7 +70,7 @@ class TeacherController{
                 };
             teachers.updateOne({ _id: req.params._id }, updateData)
             .then(() => {
-                courses.updateMany({"teacher._id": req.params._id },{"teacher.img": req.body.img,"teacher.hoTen": req.body.hoTen,"teacher.tinhTrang": req.body.tinhTrang,"teacher.soLuongKhoaHoc": req.body.soLuongKhoaHoc})
+                courses.updateMany({"teacher._id": req.params._id },{"teacher.img": req.body.img,"teacher.hoTen": req.body.hoTen,"teacher.tinhTrang": req.body.tinhTrang,"teacher.soLuongKhoaHoc": req.body.soLuongKhoaHoc,"teacher.email": req.body.email})
                 .then(()=> res.json({ code: 200, message: 'success' }))
                 .catch(error => res.json({code : 502 , message : 'fail'})) 
             })
@@ -95,20 +95,31 @@ class TeacherController{
     }
 
     delete(req,res,next){
-        teachers.delete({_id: req.params._id})
+
+        var soCourse = 0;
+        teachers.updateOne({_id: req.params._id},{soLuongKhoaHoc: soCourse})
+        .then(() =>{
+            teachers.delete({_id: req.params._id})
             .then(() => {
                 courses.updateMany({"teacher._id": req.params._id},{"teacher": "Chưa có giáo viên đảm nhiệm" ,})
                 .then(()=>{
                     res.redirect('back')
                 })
                 .catch(error =>{
-                    res.json('ERROR')
+                    res.json('Update bên course không thành công')
                 })
             })
             
             .catch(error =>{
                 res.json(error)
             });
+        })
+        .catch(error =>{
+            res.json('Update số lượng khóa học không thành công')
+        })
+        
+            
+            
     }
     restore(req,res,next){
         teachers.restore({_id:req.params._id})
@@ -121,17 +132,27 @@ class TeacherController{
             .catch(next);
     }
     countDeleted(req,res,next){
-        teachers.delete({_id:{ $in : req.body.teacherId}})
-        .then(() => {
-            courses.updateMany({"teacher._id": { $in : req.body.teacherId}},{"teacher": "Chưa có giáo viên đảm nhiệm" ,})
+        var soCourse = 0;
+        teachers.updateMany({_id:{ $in : req.body.teacherId}},{soLuongKhoaHoc: soCourse} )
             .then(()=>{
-                res.redirect('back')
+                teachers.delete({_id:{ $in : req.body.teacherId}})
+                .then(() => {
+                    courses.updateMany({"teacher._id": { $in : req.body.teacherId}},{"teacher": "Chưa có giáo viên đảm nhiệm" ,})
+                    .then(()=>{
+                        res.redirect('back')
+                    })
+                    .catch(error =>{
+                        res.json('Lỗi Update')
+                    })
+                })
+                .catch(error =>{
+                    res.json('Lỗi Xóa')
+                });
             })
-            .catch(error =>{
-                res.json('ERROR')
+            .catch(error => {
+                res.json('Lỗi Update số lượng khóa học')
             })
-        })
-            .catch(next);
+               
 
     }
     restoreAll(req,res,next){

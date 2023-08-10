@@ -8,7 +8,7 @@ class CheckCourse{
             const teach =  String(course.teacher)
             //const converJson = JSON.stringify(teach)
            
-            if(teach === "Chưa có giáo viên đảm nhiệm")
+            if(teach === "Chưa có giáo viên đảm nhiệm" || teach === " ")
             {
                 res.json({code:500, data : course})
             }

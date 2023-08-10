@@ -56,6 +56,7 @@ class EditCourseController{
                             img : teach.img,
                             soLuongKhoaHoc: soLuongKhoaHoc,
                             tinhTrang : teach.tinhTrang,
+                            email : teach.email,
                             }
                 
                         };
@@ -124,7 +125,7 @@ class EditCourseController{
                 const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')
                 const img = teach.get('img')
                 const _id = teach.get('_id')
-                
+                const mail = teach.get('email')
                 const formData = {
                     item : req.body.item,
                     price : req.body.price,
@@ -140,6 +141,7 @@ class EditCourseController{
                         img : img,
                         soLuongKhoaHoc: soLuongKhoaHoc,
                         tinhTrang : tinhTrang,
+                        email : mail,
                         }
             
                     };
@@ -165,9 +167,77 @@ class EditCourseController{
         
     }
     delete(req,res,next){
-        sales.delete({_id: req.params._id})
-        .then(()=> res.redirect('back'))
-        .catch(next);
+        sales.findOne({_id: req.params._id})
+        .then((course) =>{
+            var teacher= course.teacher;
+            var id = teacher._id;
+            var soLuong = teacher.soLuongKhoaHoc ;
+            var downCourse = soLuong - 1;
+            teachers.findOne({_id: id})
+            .then((teach) =>{
+                var downTeach = teach.get('soLuongKhoaHoc') - 1               
+                teachers.updateOne({_id: id},{soLuongKhoaHoc: downTeach})
+                .then(() =>{
+                    sales.updateMany({"teacher._id" : id},{"teacher.soLuongKhoaHoc": downCourse})
+                    .then(() =>{
+                        sales.updateOne({_id: req.params._id},{teacher: " "})
+                        .then(() =>{
+                            sales.delete({_id: req.params._id})
+                            .then(()=> res.redirect('back'))
+                            .catch(error =>{
+                             res.json('Lỗi Delete')
+                            });
+                        })
+                        .catch(error =>{
+                            res.json('Xóa teacher không thành công')
+                        })
+                    })
+                    .catch(error =>{
+                        res.json('Lỗi update teacher trong course')
+                    })
+                })
+                .catch(error =>{
+                    res.json('Update teacher không thành công')
+                })
+            }) 
+            .catch(error =>{
+                res.json('Không tìm thấy giáo viên')
+            })                  
+        })
+        .catch(error =>{
+            res.json('Không tìm thấy Khóa học')
+        })
+            
+        /* teachers.findOne({_id: req.params._id})
+        .then((teach) =>{
+            if (teach) {    
+                   
+                var downTeach = teach.get('soLuongKhoaHoc') - 1;
+                teachers.updateOne({_id: req.params._id},{soLuongKhoaHoc:downTeach}) 
+                .then(()=>
+                    sales.updateMany({"teacher._id": req.params._id },{"teacher.soLuongKhoaHoc" : downTeach})
+                    .then(()=> 
+                        res.json({ code: 200, message: 'success' })
+                    )
+                    .catch(error => res.json({code : 505 , message : 'fail'})
+                ))  
+                .catch(error =>{
+                    res.json({code:502, message : 'Cập nhật không thành công'})
+                })
+                    
+                }
+                else{
+                    res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
+                }
+                
+                
+            })
+            
+            
+
+        .catch(error =>{
+            res.json({code:504,message: 'ERROR!!!' })
+        })  */
     }
     trash(req,res,next){
         sales.findWithDeleted({ deleted: true })
@@ -292,49 +362,3 @@ class EditCourseController{
     
 }
 module.exports = new EditCourseController();
-/*  upQuantity(req,res){
-        teachers.findOne({_id: req.params._id})
-        .then((teach) =>{
-            if (teach) {        
-            const tinhTrang = teach.get('tinhTrang') ;
-            const soLuongKhoaHoc = teach.get('soLuongKhoaHoc')+1;
-            const img = teach.get('img');
-            const _id = teach.get('_id');
-            const formData = {
-                item : req.body.item,
-                price : req.body.price,
-                img : req.body.img,
-                trinhDo : req.body.trinhDo,
-                idVideo : req.body.idVideo,
-                soLuongVideo :req.body.soLuongVideo,
-                soGio : req.body.soGio,
-                title : req.body.title,
-                teacher:{
-                    _id: _id,
-                    hoTen: req.body.hoTen,
-                    img : img,
-                    soLuongKhoaHoc: soLuongKhoaHoc,
-                    tinhTrang : tinhTrang,
-                    }
-                };
-                
-                sales.updateOne({_id: req.params._id},formData) 
-                .then(()=>res.json({code: 200 }))
-                .catch(error =>{
-                    res.json({code:502, message : 'Cập nhật không thành công'})
-                })
-                    
-                }
-                else{
-                    res.json({code: 503 ,message: 'Giáo viên không tồn tại'})
-                }
-                
-                
-            })
-            
-            
-
-        .catch(error =>{
-            res.json({code:504,message: 'ERROR!!!' })
-        }) 
-    } */

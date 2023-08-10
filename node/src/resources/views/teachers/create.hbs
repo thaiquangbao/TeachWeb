@@ -14,10 +14,6 @@
                     <input type="text" class="form-control" id="gioiTinh"name="gioiTinh" style="width: 500px;">
                 </div>
                 <div class="col">
-                    <label for="lop" class="form-label">Lớp</label>
-                    <input type="text" class="form-control" id="lop"name="lop" style="width: 500px;">
-                </div>
-                <div class="col">
                     <label for="img" class="form-label">Image</label>
                     <input type="text" class="form-control" id="img"name="img" style="width: 500px;">
                 </div>
@@ -48,12 +44,12 @@
         var email = $('#email').val();
         var hoTen = $('#hoTen').val();
         var sex = $('#gioiTinh').val();
-        var classes = $('#lop').val();
+        
         var image =$('#img').val();
         var moTa = $('#description').val();
         var trangThai = $('#tinhTrang').val();
         var quantity = $('#soLuongKhoaHoc').val();
-        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||classes.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
+        if(email.trim() === ''||hoTen.trim() === ''|| sex.trim() === ''||image.trim() === ''||moTa.trim() === ''||trangThai.trim() === '')
         {
             alert('Điền đầy đủ thông tin không được để rỗng');
             return;
@@ -70,7 +66,7 @@
                     email:email,
                     hoTen:hoTen,
                     gioiTinh:sex,
-                    lop:classes,
+                    
                     img:image,
                     description:moTa,
                     tinhTrang : trangThai,

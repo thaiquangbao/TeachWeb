@@ -103,8 +103,15 @@
         }
         else if(hoTen !== checkTeach){
            // Hãy điền đoạn mã tăng giảm số lượng vào đây
+           if(checkTeach === '')
+           {
+                 
+                updateTeacherUp();
+           }
+           else{
+                updateTeacher();
+           }
            
-           updateTeacher();
         }
         else{
             return Course();
@@ -127,7 +134,7 @@
                 }
             })
             .catch(error => {
-                alert('Lỗi khi tìm kiếm giáo viên');
+                alert('Lỗi khi tìm kiếm giáo viên cũ');
             });
         }
 

@@ -7,7 +7,7 @@ const teacher = new Schema({
     email:{type: String},
     gioiTinh:{type: String},
     hoTen: {type:String },
-    lop:{type:String},
+    
     img:{type:String},
     description:{type:String},
     tinhTrang:String,
