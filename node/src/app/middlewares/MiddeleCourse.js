@@ -10,7 +10,7 @@ class CheckCourse{
            
             if(teach === "Chưa có giáo viên đảm nhiệm" || teach === " ")
             {
-                res.json({code:500, data : course})
+                res.json({code:500})
             }
             else{
                 next()

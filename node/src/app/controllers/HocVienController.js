@@ -36,7 +36,7 @@ class HocVienController{
         hocvien.save()
             .then(()=> res.redirect('/hocviens'))
             .catch(error=>{
-                console.log(error)
+                res.json(error)
             });
     }
     edit(req,res,next){
