@@ -36,7 +36,7 @@
                 </div>
                 <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
-                    <select class="form-control" id="hoTen" name="hoTen"  style="width: 500px;">
+                    <select class="form-control" data-soluong="{{sales.teacher.soLuongKhoaHoc}}" id="hoTen" data-origin="{{sales.teacher.hoTen}}" name="hoTen"  style="width: 500px;">
                         
                             <option>{{sales.teacher.hoTen}}</option>
                             {{#each teachers}}
@@ -65,6 +65,8 @@
         var title = $('#title').val();
         var hoTen = $('#hoTen').val();
         var _id = $('#item').data().id;
+        var soLuongKH = $('#hoTen').data().soluong;
+        
         if(course.trim() === '' || price.trim() === '' ||img.trim() === '' ||time.trim() === '' ||soLuongVideo.trim() === '' ||level.trim() === '' ||video.trim() === '' ||title.trim() === '' ||hoTen === '-- Chọn giáo viên --'||hoTen.trim() === '' ){
             alert('Điền đầy đủ thông tin')
             return;
@@ -74,33 +76,145 @@
             alert('Phải viết hoa toàn bộ')
             return;
        };
-       var checkCourses = $('#item').data().origin;
-       if(course !== checkCourses){
+        
+        var checkCourses = $('#item').data().origin;
+        var checkTeach = $('#hoTen').data().origin;
+        if(course !== checkCourses){
             $.ajax({
                 url: '/editcourse/check-course',
                     type : 'POST',
                     data : {
                         item : course,
-                       
+                        
                     }
+                })
+                .then((courses)=>{
+                    if(courses.exist === false){
+                        alert('Khóa học đã tồn tại')
+                    }
+                    else{
+                    return Course();
+                    }
+                })
+                .catch(error=>{
+                    alert(error)
+                })
+                
+        }
+        else if(hoTen !== checkTeach){
+           // Hãy điền đoạn mã tăng giảm số lượng vào đây
+           
+           updateTeacher();
+        }
+        else{
+            return Course();
+        };
+       
+
+      
+       function updateTeacher() {
+            $.ajax({
+                url: '/editcourse/find-teach/'+checkTeach,
+                type: 'GET',
             })
-            .then((courses)=>{
-                if(courses.exist === false){
-                    alert('Khóa học đã tồn tại')
+            .then((teacher) => {
+                if (teacher.code === 100) {
+                    var previousTeacherId = teacher.data._id;
+                   
+                    return updateTeacherDown(previousTeacherId);
+                } else {
+                    alert('Không tìm thấy giáo viên');
+                }
+            })
+            .catch(error => {
+                alert('Lỗi khi tìm kiếm giáo viên');
+            });
+        }
+
+        function updateTeacherDown(previousTeacherId) {
+            
+            
+            $.ajax({
+                url: '/editcourse/down-course/' + previousTeacherId +'?_method=PUT' ,
+                type: 'POST',
+                data:{
+                    soLuongKhoaHoc : soLuongKH
+                }
+               
+            })
+            .then((data) => {
+               
+                if(data.code === 200)
+                {
+                     return updateTeacherUp();
+                    
+                }
+                else if(data.code === 502)
+                {
+                    alert('Sửa không thành công')
+                }
+                else if(data.code === 503){
+                    alert('Giáo viên không tồn tài')
                 }
                 else{
-                   return Course();
+                    alert('Tìm không thấy giáo viên')
                 }
             })
-            .catch(error=>{
-                alert(error)
+            .catch(error => {
+                alert('Lỗi khi giảm số lượng của giáo viên cũ');
+            });
+        }
+
+        function updateTeacherUp() {
+            $.ajax({
+                url: '/editcourse/find-teach/' + hoTen,
+                type: 'GET'
             })
-            
-       }
-       else{
-           return Course();
-       }
-       function Course(){
+            .then((teacher) => {
+                if (teacher.code === 100) {
+                    var newTeacherId = teacher.data._id;
+                    return updateTeacherIncrease(newTeacherId);
+                } else {
+                    alert('Không tìm thấy giáo viên');
+                }
+            })
+            .catch(error => {
+                alert('Lỗi khi tìm kiếm giáo viên mới');
+            });
+        }
+
+        function updateTeacherIncrease(newTeacherId) {
+            $.ajax({
+                url: '/editcourse/up-course/' + newTeacherId +'?_method=PUT',
+                type: 'POST',
+                data: {
+                    soLuongKhoaHoc : soLuongKH
+                }
+            })
+            .then((data) => {
+                 if(data.code === 200)
+                {
+                    Course();
+                    
+                }
+                else if(data.code === 502)
+                {
+                    alert('Sửa không thành công')
+                }
+                else if(data.code === 503){
+                    alert('Giáo viên không tồn tài')
+                }
+                else{
+                    alert('Tìm không thấy giáo viên')
+                }
+               
+                
+            })
+            .catch(error => {
+                alert('Lỗi khi tăng số lượng cho giáo viên mới');
+            });
+        }
+         function Course(){
             $.ajax({
                 url: '/editcourse/'+_id+'?_method=PUT',
                     type : 'POST',
@@ -142,8 +256,10 @@
                 alert('ERROR!!!')
             })
             
-        }  
+        } 
+           
     }
-      
+    
+    
 
 </script>
