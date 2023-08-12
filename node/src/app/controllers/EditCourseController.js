@@ -228,95 +228,57 @@ class EditCourseController{
         .then(()=> res.redirect('back'))
         .catch(next);
     }
-    countDeleted(req,res,next){
-        sales.find({_id:{ $in : req.body.courseItem}})
-        .then((courses) =>{  
+    countDeleted(req, res, next) {
+        sales.find({ _id: { $in: req.body.courseItem } })
+          .then(async (courses) => {
             var teacher = function teach(course) {
-                var teacherss = course.teacher
-                return teacherss._id
-            }
+              var teacherss = course.teacher;
+              return teacherss._id;
+            };
             var idTeach = courses.map(teacher);
-                // teachers.find({_id : idTeach })
-                //  .then((teaches) =>{
-                //  teaches.forEach(teacher =>{
-                //         var soLuong = teacher.soLuongKhoaHoc;
-                //         var soLuongDown = soLuong - 1;
-                //         /* teachers.updateMany({_id: idTeach},{soLuongKhoaHoc: soLuongDown})
-                //         .then(() =>{
-                //             res.redirect('back')
-                           
-                //         })
-                //         .catch(error =>{
-                //             res.json('Cập nhật không thành công số lượng khóa học bên teacher')
-                //         }) */
-                //     })
-                // })
-                // .catch(error =>{
-                //     res.json('Không tìm thấy giáo viên')
-                // })
-            const newarr = []
-            idTeach.forEach(item => {
-                // const teacher = await teachers.findOne({_id : item })
-                // await teachers.updateOne({_id : item}, {soLuongKhoaHoc: teacher.soLuongKhoaHoc - 1 })
-                
-                let isHave = false
-                newarr.forEach (i => {
-                    const str1 = item.toString()
-                    const str2 = i.item.toString()
-                    if (str1 == str2) {
-                        isHave = true
-                        i.num = i.num + 1
-                    }
-                })
-                if (isHave == false) {
-                    newarr.push({item, num : 1})
+            const newarr = [];
+      
+            for (const id of idTeach) {
+              let isHave = false;
+              for (const i of newarr) {
+                const str1 = id.toString();
+                const str2 = i.id.toString();
+                if (str1 === str2) {
+                  isHave = true;
+                  i.num = i.num + 1;
                 }
-            })
-            if(num)
-        })
-        .catch(error =>{
-            /* res.json("Không tìm thấy những tên mà bạn đã tích") */
-            console.log(error)
-        })
+              }
+              if (isHave === false) {
+                newarr.push({ id, num: 1 });
+              }
+            }
+      
+            for (const gv of newarr) {
+              try {
+                const teach = await teachers.findOne({ _id: gv.id });
+                var soLuong = teach.soLuongKhoaHoc;
+                var soLuongCourse = soLuong - gv.num;
+                const objectIdString = soLuongCourse.toString(16).padStart(24, '0');
+                await teachers.updateOne({ _id: gv.id }, { soLuongKhoaHoc: soLuongCourse })
+                
+                await sales.updateMany({'teacher._id': gv.id} ,{'teacher._id': objectIdString})
+                    
+                    
+                
+              } catch (error) {
+                console.log(error);
+              }
+            }
+      
+            res.redirect('/editteachers');
+          })
+          .catch(error => {
             
-        
-    }
-
-    // []
-
+            res.json("Không tìm thấy những tên mà bạn đã tích") 
+          });
+      }
 
 
-    /*   var soLuong = function course(sl) {
-                        var teacherss = sl.soLuongKhoaHoc -1
-
-                        return teacherss  
-                    }
-                    var soLuongCourse = teaches.map(soLuong); */
-                    //console.log(soLuongCourse);
-     /* courses.forEach(course =>{
-                                var soLuongCourse = course.teacher
-                                var previous = soLuongCourse.soLuongKhoaHoc
-                                var update = previous-1
-                                sales.updateMany({'teacher._id': idTeach},{'teacher.soLuongKhoaHoc': update})
-                                .then(() =>{
-                                    sales.updateMany({_id:{ $in : req.body.courseItem}},{ teacher: "Chưa có giáo viên đảm nhiệm"}) */
-                                    /* .then(() =>{
-                                        sales.delete({_id:{ $in : req.body.courseItem}})
-                                        .then(()=> res.redirect('back'))
-                                        .catch(error =>{
-                                            
-                                        });                                    
-                                    }) */
-                                    /* res.json('Ok ròi')
-                                    .catch(error =>{
-                                        alert('Cập nhật số lượng khóa học bên course không thành công') 
-                                    }); */
-                                /* })
-                                .catch(error =>{
-                                    alert('Update teacher')
-                                }) */
-                                
-                            //})
     restoreBox(req,res,next){
         sales.restore({_id:{$in: req.body.courseItem}})
             .then(() => res.redirect('back'))
