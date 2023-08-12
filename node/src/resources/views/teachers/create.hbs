@@ -44,7 +44,6 @@
         var email = $('#email').val();
         var hoTen = $('#hoTen').val();
         var sex = $('#gioiTinh').val();
-        
         var image =$('#img').val();
         var moTa = $('#description').val();
         var trangThai = $('#tinhTrang').val();
@@ -54,11 +53,7 @@
             alert('Điền đầy đủ thông tin không được để rỗng');
             return;
         }
-        else if (classes !== classes.toUpperCase())
-       {
-            alert('Phải viết hoa toàn bộ')
-            return;
-       };
+        
         $.ajax({
             url:'/editteachers/create/insert',
                 type: 'POST',
@@ -66,7 +61,6 @@
                     email:email,
                     hoTen:hoTen,
                     gioiTinh:sex,
-                    
                     img:image,
                     description:moTa,
                     tinhTrang : trangThai,
