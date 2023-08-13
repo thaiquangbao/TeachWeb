@@ -64,7 +64,9 @@ class EditCourseController{
                         const course = new sales(formData);  
                         course.save()
                         .then(() =>{
-                            teachers.updateOne({_id: teach._id},{soLuongKhoaHoc: soLuongKhoaHoc})
+                            var upCourse = sales.updateMany({'teacher._id': teach._id},{'teacher.soLuongKhoaHoc': soLuongKhoaHoc})
+                            var upTeach = teachers.updateOne({_id: teach._id},{soLuongKhoaHoc: soLuongKhoaHoc})
+                            Promise.all([upCourse,upTeach])
                             .then(()=>{
                                 res.json({code:200 , message : 'Thêm thành công'})
                             })
@@ -230,55 +232,49 @@ class EditCourseController{
     }
     countDeleted(req, res, next) {
         sales.find({ _id: { $in: req.body.courseItem } })
-          .then(async (courses) => {
+        .then(async (courses) => {
             var teacher = function teach(course) {
               var teacherss = course.teacher;
               return teacherss._id;
             };
             var idTeach = courses.map(teacher);
-            const newarr = [];
-      
+            const newarr = [];   
             for (const id of idTeach) {
-              let isHave = false;
-              for (const i of newarr) {
-                const str1 = id.toString();
-                const str2 = i.id.toString();
-                if (str1 === str2) {
-                  isHave = true;
-                  i.num = i.num + 1;
+                let isHave = false;
+                for (const i of newarr) {
+                    const str1 = id.toString();
+                    const str2 = i.id.toString();
+                    if (str1 === str2) {
+                    isHave = true;
+                    i.num = i.num + 1;
+                    }
                 }
-              }
-              if (isHave === false) {
-                newarr.push({ id, num: 1 });
-              }
+                if (isHave === false) {
+                    newarr.push({ id, num: 1 });
+                }
             }
       
             for (const gv of newarr) {
-              try {
-                const teach = await teachers.findOne({ _id: gv.id });
-                var soLuong = teach.soLuongKhoaHoc;
-                var soLuongCourse = soLuong - gv.num;
-                const objectIdString = soLuongCourse.toString(16).padStart(24, '0');
-                await teachers.updateOne({ _id: gv.id }, { soLuongKhoaHoc: soLuongCourse })
-                
-                await sales.updateMany({'teacher._id': gv.id} ,{'teacher._id': objectIdString})
+                try {
+                    const teach = await teachers.findOne({ _id: gv.id });
+                    var soLuong = teach.soLuongKhoaHoc;
+                    var soLuongCourse = soLuong - gv.num;
                     
-                    
-                
-              } catch (error) {
-                console.log(error);
-              }
+                    await teachers.updateOne({ _id: gv.id }, { soLuongKhoaHoc: soLuongCourse })
+                    await sales.updateMany({'teacher._id': gv.id} ,{'teacher.soLuongKhoaHoc': soLuongCourse})
+                    await sales.updateMany({ _id: { $in: req.body.courseItem } }, {teacher: " "})
+                    await sales.delete({ _id: { $in: req.body.courseItem }})
+                } 
+                catch (error) {
+                    console.log(error);
+                }
             }
-      
-            res.redirect('/editteachers');
-          })
-          .catch(error => {
-            
-            res.json("Không tìm thấy những tên mà bạn đã tích") 
-          });
+            res.redirect('back');
+        })
+        .catch(error => {
+         res.json("Không tìm thấy những tên mà bạn đã tích") 
+        });
       }
-
-
     restoreBox(req,res,next){
         sales.restore({_id:{$in: req.body.courseItem}})
             .then(() => res.redirect('back'))

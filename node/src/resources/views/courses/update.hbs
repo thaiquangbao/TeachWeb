@@ -35,6 +35,10 @@
                     <input type="text" class="form-control" value="{{sales.title}}" id="title"name="title" style="width: 500px;">
                 </div>
                 <div class="col">
+                    <label for="title" class="form-label">Đã bán</label>
+                    <input type="text" class="form-control" value="{{sales.sold}}" disabled id="title"name="title" style="width: 500px;">
+                </div>
+                <div class="col">
                     <label for="tenGV" class="form-label">Nhập tên giáo viên</label>
                     <select class="form-control" data-soluong="{{sales.teacher.soLuongKhoaHoc}}" id="hoTen" data-origin="{{sales.teacher.hoTen}}" name="hoTen"  style="width: 500px;">
                         

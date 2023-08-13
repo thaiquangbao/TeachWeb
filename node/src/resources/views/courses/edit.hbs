@@ -23,17 +23,21 @@
                     <tr >
                     <th style="width: 70px;">Chọn</th>
                     <th scope="col" style="width: 50px;">#</th>
-                    <th scope="col" style="width: 150px ;">
+                    <th scope="col" style="width: 120px ;">
                         Tên khóa học
                         {{{sortable 'item' _sort}}}
                     </th>
-                    <th scope="col" style="width: 150px ;">
+                    <th scope="col" style="width: 100px ;text-align: center;">
                         Giá
                         {{{sortable 'price' _sort}}}
                        
                     </th>
-                    <th scope="col" style="width: 130px;">Số giờ học</th>
-                    <th scope="col" style="width: 130px;">
+                    <th scope="col" style="width: 130px;text-align: center;">Số giờ học</th>
+                    <th scope="col" style="width: 100px;text-align: center; " >
+                        Đã bán 
+                        
+                        </th>
+                    <th scope="col" style="width: 130px;text-align: center;">
                         Lượng video
                         {{{sortable 'soLuongVideo' _sort}}}
                     </th>
@@ -54,9 +58,10 @@
                     </td>
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.item}}</td>
-                    <td>{{this.price}} VND</td>
-                    <td>{{this.soGio}}</td>
-                    <td>{{this.soLuongVideo}}</td>
+                    <td style="text-align: center;">{{this.price}} VND</td>
+                    <td style="text-align: center;">{{this.soGio}}</td>
+                    <td style="text-align: center;">{{this.sold}}</td>
+                    <td style="text-align: center;">{{this.soLuongVideo}}</td>
                     <td>{{this.trinhDo}}</td>
                     <td>{{this.title}}</td>
                     <td>{{this.teacher.hoTen}}</td>

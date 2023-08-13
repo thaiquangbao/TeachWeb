@@ -20,6 +20,8 @@ class CourseController{
         
 
    };
-   
+   show(req,res){
+     res.render('users/myCourse')
+   }
 }
 module.exports= new CourseController();

@@ -62,7 +62,6 @@ class TeacherController{
             email:req.body.email,
             hoTen: req.body.hoTen,
             gioiTinh: req.body.gioiTinh,
-            
             img: req.body.img,
             description: req.body.description,
             tinhTrang: req.body.tinhTrang,

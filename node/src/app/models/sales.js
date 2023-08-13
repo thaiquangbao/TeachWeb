@@ -19,6 +19,7 @@ const sale = new Schema({
   soLuongVideo:String,
   soGio:String,
   title:String,
+  sold: {type:Number,require:true,default:0},
   teacher : {
     _id : {type:mongoose.Schema.Types.ObjectId} ,
     hoTen :String,

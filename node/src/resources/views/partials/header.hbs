@@ -11,16 +11,16 @@
         <li><a href="/users">Giới thiệu khóa học</a></li>
         <li><a href="/hocviens">Học viên</a></li>
         <li><a href="/teachers">Giảng viên</a></li>
-        <li><a href="">Liên hệ</a></li>
+        <li style="height: 50px; width: 200px;"><p id="coins" style="color: aliceblue; font-size: 23px; margin-top: 8px;"> </p></li>
+        
         <li class="nav-item dropdown" style="height: 40px;width: 200px;margin-top: 10px; margin-left: 130px;">
           <a class="nav-link dropdown-toggle name-user" href="#" id="navbarDropdown" role="button" style="padding-top: 0px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: black" >
             <a class="dropdown-item" href="/profiles/general" >Profile</a>
             <a class="dropdown-item" href="/editteachers">Giảng viên</a>
             <a class="dropdown-item" href="/editcourse">Sửa khóa học</a>
-            <a class="dropdown-item" href="">Khóa học của tui</a>
+            <a class="dropdown-item" href="/myCourse/My-Course">Khóa học của tui</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/account" onclick="deleteCookie()" >Đăng xuất</a>           
           </div>
@@ -28,6 +28,7 @@
     </ul>
 </header>
 <script>
+   
   function setCookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -53,17 +54,22 @@
     .then(res=>{
       if(res.code === 200)
        {
+         
           const docIMG = res.currentUser._doc.img
+          $('#coins').text('Coins: '+ res.currentUser._doc.coin)
+          
           $('ul.menu').removeAttr('hidden');
           $('img.avartar-user').removeAttr('hidden')
           $('a.name-user').text(res.currentUser._doc.name)
+          
           if(!docIMG ){
             $('img.avartar-user').attr('src',"https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png") 
 
           }
           else{
             $('img.avartar-user').attr('src',res.currentUser._doc.img)
-
+            
+            
           }
        }
     })

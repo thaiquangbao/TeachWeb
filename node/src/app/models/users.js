@@ -39,7 +39,20 @@ const users= new Schema({
         type : String,
         require : true,
         default : ''
-    }
+    },
+    coin: {
+        type : Number,
+        require: true,
+        default: 0
+    },
+    course: [
+        {
+            _id : {type:mongoose.Schema.Types.ObjectId} ,
+            gv:{type : String},
+            tenKH:{type:String}
+        }
+    ]   
+    
 }, {timestamps : true})
 
 module.exports = mongoose.model('Users',users)

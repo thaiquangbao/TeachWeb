@@ -13,8 +13,9 @@
                 </a>
                 <div class="card-body">
                     <h5 class="card-title" >{{this.item}}</h5>
+                    <p class="card-text" id="bought">Đã bán : {{this.sold}}</p>
                     <p class="card-text">Phí : {{this.price}}</p>
-                    <a href="#" class="btn btn-primary">Mua</a>
+                    <button onclick="buyCourse('{{this.slug}}','{{this._id}}')" class="btn btn-primary">Mua</button>
                 </div>
             </div>
         </div>
@@ -49,6 +50,38 @@
             alert('Lỗi')
         })
         
+    }
+    function buyCourse(slug,_id){
+        $.ajax({
+            url:'/users/buy/'+slug+'/'+_id,
+                type:'POST',
+                
+        })
+        .then((money) =>{
+            if(money.code === 403)
+            {
+                alert(money.message)
+            }
+            else if(money.code === 500){
+                alert('Hiện tại khóa học đang bảo trì nên không thể mua !!!')
+            }
+            else if(money.code === 200){
+                alert('Mua thành công, số coins còn lại : '+ money.data)
+            }
+            else if(money.code === 250){
+                
+                alert('Mua không thành công, bạn còn thiếu ' + money.data +' coins')
+                
+            }
+            else if(money.code=== 501){
+                alert('Lỗi update giá tiền cho user')
+                console.log(money.err)
+            }
+            window.location.href='/users'
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     }
 </script>
 
