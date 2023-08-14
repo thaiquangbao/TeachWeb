@@ -47,9 +47,10 @@ const users= new Schema({
     },
     course: [
         {
-            _id : {type:mongoose.Schema.Types.ObjectId ,default: ''} ,
+            
+            tenKH:{type : String, default: ''},
             gv:{type : String, default: ''},
-            tenKH:{type:String, default: ''}
+            img:{type:String, default: ''}
         }
     ]   
     

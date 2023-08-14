@@ -67,6 +67,8 @@
             }
             else if(money.code === 200){
                 alert('Mua thành công, số coins còn lại : '+ money.data)
+                console.log(money.users)
+                
             }
             else if(money.code === 250){
                 
@@ -75,7 +77,10 @@
             }
             else if(money.code=== 501){
                 alert('Lỗi update giá tiền cho user')
-                console.log(money.err)
+                
+            }
+            else if(money.code === 502){
+                alert('Khóa học này bản đã mua')
             }
             window.location.href='/users'
         })

@@ -24,26 +24,47 @@ class UserController {
     let courses = sales.findOne({_id: req.params._id})
     Promise.all([person,courses])
     .then(([user,course]) =>{
-     var coins = user.coin
-     var gia = course.price
-     var amout = coins - gia 
-     var thieu = gia - coins  
-     var sell = course.sold + 1 
-      if(coins >= gia)
-      { 
-        var upSold = sales.updateOne({_id: req.params._id},{sold : sell })
-        var upCoin =  users.updateOne({_id:req._id},{coin : amout})
-        Promise.all([upSold,upCoin])
-        .then(() =>{
-          res.json({code: 200, data: amout})
-        })
-        .catch(error=>{
-          res.json({code : 501 , err : error})
-        })
+      var coins = user.coin
+      var gia = course.price
+      var amout = coins - gia 
+      var thieu = gia - coins  
+      var sell = course.sold + 1 
+      var idCourse = course._id;
+      var teacher = course.teacher.hoTen
+      var tenCourse = course.item
+      var imgCourse = course.img 
+      var uc = user.course
+      const formData = 
+      {
+        tenKH: tenCourse,
+        gv: teacher,
+        img: imgCourse
       }
-      else{
-        res.json({code:250,data: thieu})
-      } 
+        if(coins >= gia)
+        { 
+          var upSold = sales.updateOne({_id: req.params._id},{sold : sell })
+          var upCoin =  users.updateOne({_id:req._id},{coin : amout})
+          Promise.all([upSold,upCoin])
+          .then(() =>{
+            const courseExists = uc.some(coursess => coursess.tenKH === tenCourse);
+              if(courseExists === true){
+                res.json({code:502})
+              }
+              else{
+                uc.push(formData)
+                user.save()
+                .then(() => res.json({code: 200, data: amout, users:user}))
+                .catch(error => console.log(error))
+              }
+            
+          })
+          .catch(error=>{
+            res.json({code : 501 , err : error})
+          })
+        }
+        else{
+          res.json({code:250,data: thieu})
+        } 
     })
     .catch(error =>{
       res.json('Không tìm được khóa học và user')
