@@ -6,7 +6,7 @@
                 <div class="card card-item" >
                     <div class="card-body">
                         <h6 class="card-title">Bạn đã đăng ký khóa học này</h6>
-                        <a href="#" class="btn btn-primary">Học ngay</a>
+                        <a href="/users" onclick="buyCourse()" id="courses" class="btn btn-primary" data-name="{{sales.item}}">Học ngay</a>
                         <p class="card-text">Tổng số {{sales.soLuongVideo}} videos</p>
                         <p class="card-text">Trình độ {{sales.trinhDo}}</p>
                         <p class="card-text">Cần {{sales.soGio}} giờ để học</p>
@@ -36,8 +36,10 @@
         </div>
         
      </div>
-    
-        
-    
-
 </div>
+<script>
+    var nameC = $('#courses').data().name
+    function buyCourse(){
+        alert('Mời bạn mua khóa học '+  nameC)
+    }
+</script>
