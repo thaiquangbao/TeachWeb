@@ -19,8 +19,10 @@ class CourseController{
   show(req,res){
     users.findById(req._id)
     .then((user) =>{
-     console.log(multipleMongooseToObject(user.course));
-      //res.render('users/myCourse')
+      var u = user.course;
+      res.render('users/myCourse',{
+        courses : multipleMongooseToObject(u)
+      });
     })
     .catch(error =>{
       console.log(error);

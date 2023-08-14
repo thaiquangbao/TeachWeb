@@ -4,22 +4,21 @@
         <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
     </form>
     <div class="row">
-        
+    {{#each courses}}
         <div class="col-sm-6 col-lg-4" >
             <div class="card card-course-item" >
                 <a class="submit" style="margin-top: 10px;" >
-                    <img  id="imgCourse"  class="card-img-top" style="height: 200px; border-radius: 30px; border: 2px solid rgb(122, 166, 231) ;" src="" alt="Card image cap">
+                    <img  id="imgCourse"  class="card-img-top" style="height: 200px; border-radius: 30px; border: 2px solid rgb(122, 166, 231) ;" src="{{this.img}}" alt="Card image cap">
                 </a>
-                <div class="card-body">
-                    <h5 class="card-title" ></h5>
-                    <p class="card-text">Tên khóa học : </p>
-                    <p class="card-text">Giáo viên : </p>
-                    <p class="card-text">Trạng thái : </p>
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title"> {{this.tenKH}} </h5>
+                    <p class="card-text">Giáo viên : {{this.gv}}</p>
+                    <p class="card-text">Trạng thái : {{this.trangThai}} </p>
                     <button  class="btn btn-primary">Vào học</button>
                 </div>
             </div>
         </div>
-        
+    {{/each}}   
         
     </div>
     <div class="inserthv" style="margin-top: 50px; text-align: center;">
