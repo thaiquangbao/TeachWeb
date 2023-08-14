@@ -15,7 +15,9 @@ class EditCourseController{
                 })
             
     })
-            .catch(next);
+            .catch(error =>{
+                res.json(error)
+            });
     };
     
     create(req,res){

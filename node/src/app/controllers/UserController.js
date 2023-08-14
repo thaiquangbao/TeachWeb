@@ -3,7 +3,7 @@ const users = require('../models/users')
 const {multipleMongooseToObject} = require('../../until/mongoose');
 const {mongooseToObject} = require('../../until/mongoose');
 const { error } = require('jquery');
-const { setMaxListeners } = require('../models/teachers');
+
 class UserController {
   index(req, res, next) {
     //[Get] /users
@@ -88,6 +88,19 @@ class UserController {
       .catch(error=>{
         res.json('ERROR')
       });
+  }
+  study(req,res){
+    users.findById(req._id)
+    .then((user) =>{
+      var u = user.course;
+      var check =  function tt(tinhTrang) {
+        return tinhTrang.trangThai
+      }
+      console.log(u.map(check));
+    })
+    .catch(error =>{
+      res.json('Bạn phải đăng nhập')
+    })
   }
 
 }
