@@ -50,7 +50,8 @@ const users= new Schema({
             
             tenKH:{type : String, default: ''},
             gv:{type : String, default: ''},
-            img:{type:String, default: ''}
+            img:{type:String, default: ''},
+            trangThai:String
         }
     ]   
     

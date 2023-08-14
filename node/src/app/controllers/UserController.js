@@ -38,29 +38,34 @@ class UserController {
       {
         tenKH: tenCourse,
         gv: teacher,
-        img: imgCourse
+        img: imgCourse,
+        trangThai: 'Đã sở hữu'
       }
         if(coins >= gia)
         { 
-          var upSold = sales.updateOne({_id: req.params._id},{sold : sell })
-          var upCoin =  users.updateOne({_id:req._id},{coin : amout})
-          Promise.all([upSold,upCoin])
-          .then(() =>{
-            const courseExists = uc.some(coursess => coursess.tenKH === tenCourse);
-              if(courseExists === true){
-                res.json({code:502})
-              }
-              else{
-                uc.push(formData)
-                user.save()
-                .then(() => res.json({code: 200, data: amout, users:user}))
-                .catch(error => console.log(error))
-              }
+          const courseExists = uc.some(coursess => coursess.tenKH === tenCourse);
+          if(courseExists === true){
+            res.json({code:502})
+          }
+          else{
+            uc.push(formData)
+            user.save()
+            .then(() => 
+            {
+              var upSold = sales.updateOne({_id: req.params._id},{sold : sell })
+              var upCoin =  users.updateOne({_id:req._id},{coin : amout})
+              Promise.all([upSold,upCoin])
+              .then(() =>{
+                res.json({code: 200, data: amout, users:user})
+              
+              })
+              .catch(error=>{
+              res.json({code : 501 , err : error})
+              })
+            })     
+            .catch(error => console.log(error))
+          }
             
-          })
-          .catch(error=>{
-            res.json({code : 501 , err : error})
-          })
         }
         else{
           res.json({code:250,data: thieu})
