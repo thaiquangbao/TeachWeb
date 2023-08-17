@@ -6,7 +6,7 @@
                 <div class="card card-item" >
                     <div class="card-body">
                         <h6 class="card-title">Bạn đã đăng ký khóa học này</h6>
-                        <a href="/users" onclick="buyCourse()" id="courses" class="btn btn-primary" data-name="{{sales.item}}">Học ngay</a>
+                        <button  onclick="checkBuy()" id="courses" class="btn btn-primary" data-id="{{sales._id}}" data-name="{{sales.item}}">Học ngay</button>
                         <p class="card-text">Tổng số {{sales.soLuongVideo}} videos</p>
                         <p class="card-text">Trình độ {{sales.trinhDo}}</p>
                         <p class="card-text">Cần {{sales.soGio}} giờ để học</p>
@@ -39,7 +39,31 @@
 </div>
 <script>
     var nameC = $('#courses').data().name
-    function buyCourse(){
-        alert('Mời bạn mua khóa học '+  nameC)
+    var idC = $('#courses').data().id
+    
+        
+    
+    function checkBuy(){
+        $.ajax({
+            url: "/users/check-buy/"+idC,
+                type: "POST"
+        })
+        .then((data) =>{
+            if(data.code === 200)
+            {
+                alert('Mời bạn mua khóa học '+  nameC)
+                window.location.href = "/users"
+            }
+            else if(data.code === 502){
+                alert('Xin bạn thông cảm chúng tôi đang trong quá trình hoàn thiện khóa học!!!')
+                
+            }
+            else{
+                alert('Không tìm thấy kháo học')
+            }
+        })
+        .catch(error =>{
+            console.log('lỗi')
+        })
     }
 </script>

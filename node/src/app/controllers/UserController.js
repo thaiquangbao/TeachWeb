@@ -80,7 +80,7 @@ class UserController {
     //[Get] /users/:slug
      sales.findOne({_id: req.params._id}) // tự update slug mới
       .then(sales => {
-        //res.send('Ok')
+        
         res.render('courses/show',{
           sales: mongooseToObject(sales)
         })
@@ -90,18 +90,25 @@ class UserController {
       });
   }
   study(req,res){
-    users.findById(req._id)
-    .then((user) =>{
-      var u = user.course;
-      var check =  function tt(tinhTrang) {
-        return tinhTrang.trangThai
-      }
-      console.log(u.map(check));
+    let person = users.findById(req._id)
+    let courses = sales.findOne({_id: req.params._id})
+    Promise.all([person,courses])
+    .then(([user,courses]) =>{
+      var tenCourse = courses.item
+      var uc = user.course
+      const courseExists = uc.some(coursess => coursess.tenKH === tenCourse);
+      
+          if(courseExists === true){
+            res.json({code:502})
+          }
+          else{
+            res.json({code:200, courseExists})
+          }  
     })
     .catch(error =>{
-      res.json('Bạn phải đăng nhập')
+        res.json({code: 501})
     })
   }
-
+  
 }
 module.exports = new UserController();

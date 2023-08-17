@@ -1,8 +1,15 @@
 <div class="mt-4">
-    <form class="form-inline" >
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
-    </form>
+    <div class="form-inline" >
+       <input class="form-control mr-sm-2" id="inputSearch" type="search" placeholder="Search" aria-label="Search">
+        <button onclick="search()" class="btn btn-outline-success my-2 my-sm-0 btn-search" id="searchButton" type="submit">Search</button>
+    </div>
+    <div id="searchResults" class="row">
+    <!-- Kết quả tìm kiếm sẽ được hiển thị ở đây -->
+    </div>
+
+    <div id="noResults" class="row" style="display: none; margin-top: 30px;">
+        <p>Không tìm thấy khóa học phù hợp.</p>
+    </div>
     <div class="row">
     {{#each courses}}
         <div class="col-sm-6 col-lg-4" >
@@ -25,3 +32,33 @@
             <a href="/users" class="btn btn-primary" style="border-top: 30px;,height: 100px; width: 200px; text-align: center; background-color: chocolate; border-color: chocolate;">Thêm khóa học mới</a>
     </div> 
 </div>
+<script>
+    
+   function search() {
+        var input = $('#inputSearch').val().toLowerCase();
+        var foundResults = false; // Biến kiểm tra xem có kết quả tìm kiếm hay không
+
+        $('.card-course-item').each(function () {
+            var cardTitle = $(this).find('.card-title').text().toLowerCase();
+            if (cardTitle.includes(input)) {
+                $(this).show();
+                foundResults = true; // Đánh dấu có kết quả tìm kiếm
+            } else {
+                $(this).hide();
+            }
+        });
+
+        // Hiển thị thông báo khi không tìm thấy kết quả
+        if (!foundResults) {
+            $('#noResults').show(); // Hiển thị thông báo không tìm thấy kết quả
+            $('#searchResults').hide(); // Ẩn kết quả tìm kiếm
+        } else {
+            $('#noResults').hide(); // Ẩn thông báo không tìm thấy kết quả
+            $('#searchResults').show(); // Hiển thị kết quả tìm kiếm
+        }
+
+    
+    }
+
+
+</script>
