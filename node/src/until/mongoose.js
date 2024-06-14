@@ -10,7 +10,7 @@ module.exports={
         let date = obj.dateOfBirth ;
         
         if(obj.img === '') {
-            obj.img = "https://res.cloudinary.com/dk41ftplg/image/upload/v1688965244/Teach-Node/wkz0upebb9k3danolvbc.png"
+            obj.img = "https://res.cloudinary.com/dk41ftplg/image/upload/v1718341154/Teach-Node/vdtihswgevluf4efpwhk.png"
            
         }
         else if (date)
